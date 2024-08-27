@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskMinder - Login/Register</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+        }
+        .container {
+            display: flex;
+            height: 100%;
+        }
+        .form-container {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .image-container {
+            flex: 1;
+            background-color: #000033;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        input[type="email"], input[type="password"], input[type="text"] {
+            padding: 0.5rem;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            font-size: 1rem;
+        }
+        button {
+            padding: 0.75rem;
+            background-color: #0000FF;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .switch-form {
+            margin-top: 1rem;
+            text-align: center;
+        }
+        .switch-form a {
+            color: #0000FF;
+            text-decoration: none;
+        }
+        #registerForm {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>TaskMinder</h2>
+            <form id="loginForm">
+                <h1>Sign in</h1>
+                <p>If you don't have an account register <a href="#" id="showRegister">Register here !</a></p>
+                <input type="email" placeholder="Enter your email address" required>
+                <input type="password" placeholder="Enter your Password" required>
+                <div>
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Remember me</label>
+                    <a href="#" style="float: right;">Forgot Password?</a>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <form id="registerForm">
+                <h1>Sign up</h1>
+                <p>If you already have an account register <a href="#" id="showLogin">Login here !</a></p>
+                <input type="email" placeholder="Enter your email address" required>
+                <input type="text" placeholder="Enter your User name" required>
+                <input type="password" placeholder="Enter your Password" required>
+                <input type="password" placeholder="Confirm your Password" required>
+                <button type="submit">Register</button>
+            </form>
+            <div id="socialLogin">
+                <p>or continue with</p>
+                <div class="social-login">
+                    <div class="social-icon">f</div>
+                    <div class="social-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6.066 9.645c.183 4.04-2.83 8.544-8.164 8.544-1.622 0-3.131-.476-4.402-1.291 1.524.18 3.045-.244 4.252-1.189-1.256-.023-2.317-.854-2.684-1.995.451.086.895.061 1.298-.049-1.381-.278-2.335-1.522-2.304-2.853.388.215.83.344 1.301.359-1.279-.855-1.641-2.544-.889-3.835 1.416 1.738 3.533 2.881 5.92 3.001-.419-1.796.944-3.527 2.799-3.527.825 0 1.572.349 2.096.907.654-.128 1.27-.368 1.824-.697-.215.671-.67 1.233-1.263 1.589.581-.07 1.135-.224 1.649-.453-.384.578-.87 1.084-1.433 1.489z"/>
+                        </svg>
+                    </div>
+                    <div class="social-icon">G</div>
+                </div>
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="/placeholder.svg?height=300&width=300" alt="TaskMinder illustration">
+            <h2>Sign in to TaskMinder</h2>
+            <p>Lorem Ipsum is simply</p>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const showRegister = document.getElementById('showRegister');
+        const showLogin = document.getElementById('showLogin');
+        const socialLogin = document.getElementById('socialLogin');
+
+        showRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'flex';
+            socialLogin.style.display = 'none';
+        });
+
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'flex';
+            socialLogin.style.display = 'block';
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Add login logic here
+            console.log('Login submitted');
+        });
+
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Add registration logic here
+            console.log('Registration submitted');
+        });
+
+        // Placeholder functions for social media logins
+        function loginWithFacebook() {
+            console.log('Login with Facebook');
+        }
+
+        function loginWithTwitter() {
+            console.log('Login with Twitter');
+        }
+
+        function loginWithGoogle() {
+            console.log('Login with Google');
+        }
+    </script>
+</body>
+</html>
