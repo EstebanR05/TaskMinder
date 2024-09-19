@@ -1,5 +1,5 @@
 <?php
-include_once __DIR__ . '/../config/db.php';
+include_once __DIR__ . '/../config/Database.php';
 
 class UserController {
     private $conn;
