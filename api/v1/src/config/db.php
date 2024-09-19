@@ -1,13 +1,11 @@
 <?php
-
-class ConexionDataBase {
-
+class Database {
     private $host = 'localhost';
     private $username = 'root';
     private $password = '';
     private $db_name = 'Task_minder';
 
-    public function starter(){
+    public function getConnection(){
         $hostDB = "mysql:host=" . $this->host . ";dbname=" . $this->db_name . ";";
 
         try {
@@ -19,5 +17,3 @@ class ConexionDataBase {
         }
     }
 }
-
-?>
