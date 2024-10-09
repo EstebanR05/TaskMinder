@@ -56,8 +56,3 @@ create table Tasks (
     constraint fk_tasks_user foreign key (Id_user_creator_task) references Users(Id_user),
     constraint fk_tasks_user_responsable foreign key (Id_user_responsable_task) references Users(Id_user)
 );
-
-create table Boards (
-    Id_board int NOT NULL PRIMARY KEY,
-    Name_board varchar(30) NOT NULL
-);

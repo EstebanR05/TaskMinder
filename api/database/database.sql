@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Sep 30, 2024 at 05:07 AM
+-- Host: 127.0.0.1
+-- Generation Time: Oct 09, 2024 at 06:33 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -18,27 +18,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `Task_minder`
+-- Database: `task_minder`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Boards`
+-- Table structure for table `priority`
 --
 
-CREATE TABLE `Boards` (
-  `Id_board` int(11) NOT NULL,
-  `Name_board` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Priority`
---
-
-CREATE TABLE `Priority` (
+CREATE TABLE `priority` (
   `Id_priority` int(11) NOT NULL,
   `Name_priority` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -46,29 +35,29 @@ CREATE TABLE `Priority` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Rols`
+-- Table structure for table `rols`
 --
 
-CREATE TABLE `Rols` (
+CREATE TABLE `rols` (
   `Id_rol` int(11) NOT NULL,
   `Name_rol` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `Rols`
+-- Dumping data for table `rols`
 --
 
-INSERT INTO `Rols` (`Id_rol`, `Name_rol`) VALUES
+INSERT INTO `rols` (`Id_rol`, `Name_rol`) VALUES
 (1, 'Administrador'),
 (2, 'Usuario');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `States`
+-- Table structure for table `states`
 --
 
-CREATE TABLE `States` (
+CREATE TABLE `states` (
   `Id_state` int(11) NOT NULL,
   `Name_state` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -76,10 +65,10 @@ CREATE TABLE `States` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Tasks`
+-- Table structure for table `tasks`
 --
 
-CREATE TABLE `Tasks` (
+CREATE TABLE `tasks` (
   `Id_task` int(11) NOT NULL,
   `Name_task` varchar(40) NOT NULL,
   `Description_task` varchar(300) NOT NULL,
@@ -94,10 +83,10 @@ CREATE TABLE `Tasks` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Users`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `Users` (
+CREATE TABLE `users` (
   `Id_user` int(11) NOT NULL,
   `Name_user` varchar(40) NOT NULL,
   `Password_user` varchar(80) NOT NULL,
@@ -108,10 +97,10 @@ CREATE TABLE `Users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `Users`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `Users` (`Id_user`, `Name_user`, `Password_user`, `Email_user`, `Phone_user`, `Address_user`, `Id_rol`) VALUES
+INSERT INTO `users` (`Id_user`, `Name_user`, `Password_user`, `Email_user`, `Phone_user`, `Address_user`, `Id_rol`) VALUES
 (1, 'esteban', '123456', 'e05072003@gmail.com', '3116686210', 'carrera 5 #15-15', 1);
 
 --
@@ -119,33 +108,27 @@ INSERT INTO `Users` (`Id_user`, `Name_user`, `Password_user`, `Email_user`, `Pho
 --
 
 --
--- Indexes for table `Boards`
+-- Indexes for table `priority`
 --
-ALTER TABLE `Boards`
-  ADD PRIMARY KEY (`Id_board`);
-
---
--- Indexes for table `Priority`
---
-ALTER TABLE `Priority`
+ALTER TABLE `priority`
   ADD PRIMARY KEY (`Id_priority`);
 
 --
--- Indexes for table `Rols`
+-- Indexes for table `rols`
 --
-ALTER TABLE `Rols`
+ALTER TABLE `rols`
   ADD PRIMARY KEY (`Id_rol`);
 
 --
--- Indexes for table `States`
+-- Indexes for table `states`
 --
-ALTER TABLE `States`
+ALTER TABLE `states`
   ADD PRIMARY KEY (`Id_state`);
 
 --
--- Indexes for table `Tasks`
+-- Indexes for table `tasks`
 --
-ALTER TABLE `Tasks`
+ALTER TABLE `tasks`
   ADD PRIMARY KEY (`Id_task`),
   ADD KEY `fk_tasks_state` (`Id_state_task`),
   ADD KEY `fk_tasks_priority` (`Id_priority_task`),
@@ -153,9 +136,9 @@ ALTER TABLE `Tasks`
   ADD KEY `fk_tasks_user_responsable` (`Id_user_responsable_task`);
 
 --
--- Indexes for table `Users`
+-- Indexes for table `users`
 --
-ALTER TABLE `Users`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`Id_user`),
   ADD KEY `fk_users_rols` (`Id_rol`);
 
@@ -164,19 +147,19 @@ ALTER TABLE `Users`
 --
 
 --
--- Constraints for table `Tasks`
+-- Constraints for table `tasks`
 --
-ALTER TABLE `Tasks`
-  ADD CONSTRAINT `fk_tasks_priority` FOREIGN KEY (`Id_priority_task`) REFERENCES `Priority` (`Id_priority`),
-  ADD CONSTRAINT `fk_tasks_state` FOREIGN KEY (`Id_state_task`) REFERENCES `States` (`Id_state`),
-  ADD CONSTRAINT `fk_tasks_user` FOREIGN KEY (`Id_user_creator_task`) REFERENCES `Users` (`Id_user`),
-  ADD CONSTRAINT `fk_tasks_user_responsable` FOREIGN KEY (`Id_user_responsable_task`) REFERENCES `Users` (`Id_user`);
+ALTER TABLE `tasks`
+  ADD CONSTRAINT `fk_tasks_priority` FOREIGN KEY (`Id_priority_task`) REFERENCES `priority` (`Id_priority`),
+  ADD CONSTRAINT `fk_tasks_state` FOREIGN KEY (`Id_state_task`) REFERENCES `states` (`Id_state`),
+  ADD CONSTRAINT `fk_tasks_user` FOREIGN KEY (`Id_user_creator_task`) REFERENCES `users` (`Id_user`),
+  ADD CONSTRAINT `fk_tasks_user_responsable` FOREIGN KEY (`Id_user_responsable_task`) REFERENCES `users` (`Id_user`);
 
 --
--- Constraints for table `Users`
+-- Constraints for table `users`
 --
-ALTER TABLE `Users`
-  ADD CONSTRAINT `fk_users_rols` FOREIGN KEY (`Id_rol`) REFERENCES `Rols` (`Id_rol`);
+ALTER TABLE `users`
+  ADD CONSTRAINT `fk_users_rols` FOREIGN KEY (`Id_rol`) REFERENCES `rols` (`Id_rol`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
