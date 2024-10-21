@@ -31,9 +31,3 @@ if (strpos($request, '/api/v1/tasks') !== false) {
     include_once './src/routes/TaskRoute.php';
 }
 
-// Rutas para usuarios (boards)
-/*
-if (strpos($request, '/api/v1/boards') !== false) {
-    include_once './src/routes/UserRoute.php';
-}
-*/
