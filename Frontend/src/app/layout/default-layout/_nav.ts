@@ -15,9 +15,10 @@ export const navItems: INavData[] = [
     name: 'dashboard'
   },
   {
-    name: 'Task',
-    url: '/dashboard/colors',
-    iconComponent: { name: 'cil-drop' }
+    name: 'Tareas',
+    url: '/pages/task',
+    iconComponent: { name: 'cil-notes' },
+    //icon: 'nav-icon-bullet'
   },
   {
     name: 'Login',

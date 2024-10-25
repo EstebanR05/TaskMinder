@@ -15,6 +15,10 @@ export const routes: Routes = [
     },
     children: [
       {
+        path: 'pages',
+        loadChildren: () => import('./pages/pages.module').then((m) => m.PagesModule)
+      },
+      {
         path: 'dashboard',
         loadChildren: () => import('./views/dashboard/routes').then((m) => m.routes)
       },
@@ -84,5 +88,5 @@ export const routes: Routes = [
       title: 'Register Page'
     }
   },
-  { path: '**', redirectTo: 'dashboard' }
+  { path: '**', redirectTo: 'pages' }
 ];
