@@ -4,7 +4,8 @@ import { TaskManagerComponent } from '../pages/Task/task-manager/task-manager.co
 
 
 export const pagesRoutes: Routes = [
-  { path: "task", component: TaskListComponent },
-  { path: "task/create", component: TaskManagerComponent },
-  { path: "task/delete", component: TaskManagerComponent },
+  { 
+    path: "task", 
+    loadChildren: () => import('./Task/task.module').then((m) => m.TaskModule)
+  },
 ];
