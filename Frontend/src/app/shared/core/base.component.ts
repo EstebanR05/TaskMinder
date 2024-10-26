@@ -33,7 +33,7 @@ export class BaseComponent {
   }
 
   async handleSuccess(message: string) {
-    Swal.fire({ title: 'Success!', text: message, icon: 'success' });
+    Swal.fire({ title: 'Realizado!', text: message, icon: 'success' });
   }
 
   openModal(event: any) {

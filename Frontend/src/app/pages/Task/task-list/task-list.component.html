@@ -55,8 +55,8 @@
                       </svg>
                     </button>
                   </div>
-                  <div class="btn-group" role="group" aria-label="Enviar">
-                    <button type="button" class="btn btn-sm bg-white" cTooltip="prioridad" [cTooltipVisible]="true">
+                  <div class="btn-group" role="group" aria-label="Enviar" cTooltip="prioridad">
+                    <button type="button" class="btn btn-sm bg-white">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
                         <path
@@ -66,8 +66,8 @@
                       </svg>
                     </button>
                   </div>
-                  <div class="btn-group" role="group" aria-label="Enviar">
-                    <button type="button" class="btn btn-sm bg-white" cTooltip="asignar usuario" [cTooltipVisible]="true">
+                  <div class="btn-group" role="group" aria-label="Enviar" cTooltip="asignar usuario">
+                    <button type="button" class="btn btn-sm bg-white">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-person-plus" viewBox="0 0 16 16">
                         <path
@@ -77,8 +77,8 @@
                       </svg>
                     </button>
                   </div>
-                  <div class="btn-group" role="group" aria-label="Editar">
-                    <button type="button" class="btn btn-sm bg-white"  cTooltip="Editar" [cTooltipVisible]="true"
+                  <div class="btn-group" role="group" aria-label="Editar"cTooltip="Editar">
+                    <button type="button" class="btn btn-sm bg-white"
                       (click)="this.route.navigate(['/pages/task/update/', item.id])">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-pen" viewBox="0 0 16 16">
@@ -87,7 +87,7 @@
                       </svg>
                     </button>
                   </div>
-                  <div class="btn-group" role="group" aria-label="Eliminar"  cTooltip="Eliminar" [cTooltipVisible]="true"> <!-- Ajusta el margen aquí -->
+                  <div class="btn-group" role="group" aria-label="Eliminar"  cTooltip="Eliminar"> <!-- Ajusta el margen aquí -->
                     <button type="button" class="btn btn-sm bg-white" (click)="this.delete(item.id)">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-trash3" viewBox="0 0 16 16">
