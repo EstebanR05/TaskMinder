@@ -34,23 +34,23 @@
       <div class="card-body">
         <div class="row">
           <div class="col-lg-3 col-sm-6">
-            <label for="inputState" class="form-label text-dark">Tarea</label>
+            <label for="inputState" class="form-label text-dark">Nombre</label>
             <input type="text" class="form-control form-control-sm" placeholder="Ingrese la tarea"
                    formControlName="name"/>
             <div *ngIf="getControl('name').invalid && ngForm.submitted" class="text-left">
-              <label class="text-danger text-xs">Tarea es requerido o invalido</label>
+              <label class="text-danger text-xs">Nombre es requerido o invalido</label>
             </div>
           </div>
           <div class="col-lg-3 col-sm-6">
-            <label for="inputState" class="form-label text-dark">Area</label>
+            <label for="inputState" class="form-label text-dark">Descripcion</label>
             <input type="text" class="form-control form-control-sm" placeholder="Ingresar el area"
                    formControlName="area"/>
             <div *ngIf="getControl('area').invalid && ngForm.submitted" class="text-left">
-              <label class="text-danger text-xs">area es requerida o invalida</label>
+              <label class="text-danger text-xs">Descripcion es requerida o invalida</label>
             </div>
           </div>
           <div class="col-lg-3 col-sm-6">
-            <label for="inputState" class="form-label text-dark">Codigo</label>
+            <label for="inputState" class="form-label text-dark">Estado</label>
             <input type="number" class="form-control form-control-sm" placeholder="Ingrese el Codigo"
                    formControlName="code"/>
             <div *ngIf="getControl('code').invalid && ngForm.submitted" class="text-left">
@@ -61,7 +61,7 @@
   
         <div class="row mt-3">
           <div class="col-lg-3 col-sm-6">
-            <label for="inputState" class="form-label text-dark">Comentario</label>
+            <label for="inputState" class="form-label text-dark">Prioridad</label>
             <input type="text" class="form-control form-control-sm" placeholder="Ingrese el Comentario"
                    formControlName="Comentary"/>
             <div *ngIf="getControl('Comentary').invalid && ngForm.submitted" class="text-left">
