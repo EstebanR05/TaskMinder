@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TooltipDirective } from '@coreui/angular';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,TooltipDirective],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
@@ -27,7 +29,23 @@ export class TaskListComponent implements OnInit {
   }
 
   public async delete(id: number){
-
+    Swal.fire({
+      title: "Estas seguro de eliminar?",
+      text: "No podras revertir esta accion!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, estoy seguro!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Eliminado!",
+          text: "La tarea se ha eliminado correctamente.",
+          icon: "success"
+        });
+      }
+    });
   }
 
 }

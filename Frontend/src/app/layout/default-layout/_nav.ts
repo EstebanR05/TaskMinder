@@ -20,16 +20,17 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-notes' },
     //icon: 'nav-icon-bullet'
   },
-  {
-    name: 'Login',
-    url: '/login',
-    icon: 'nav-icon-bullet'
-  },
-  {
-    name: 'Register',
-    url: '/register',
-    icon: 'nav-icon-bullet'
-  },
+  
+  // {
+  //   name: 'Login',
+  //   url: '/login',
+  //   icon: 'nav-icon-bullet'
+  // },
+  // {
+  //   name: 'Register',
+  //   url: '/register',
+  //   icon: 'nav-icon-bullet'
+  // },
   // {
   //   name: 'Colors',
   //   url: '/theme/colors',
