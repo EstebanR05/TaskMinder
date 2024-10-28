@@ -20,7 +20,16 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-notes' },
     //icon: 'nav-icon-bullet'
   },
-  
+  {
+    name: 'CoreUI Free',
+    url: '/icons/coreui-icons',
+    icon: 'nav-icon-bullet',
+    badge: {
+      color: 'success',
+      text: 'FREE'
+    }
+  }
+
   // {
   //   name: 'Login',
   //   url: '/login',
