@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2024 at 06:33 PM
+-- Generation Time: Oct 28, 2024 at 08:33 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -49,7 +49,8 @@ CREATE TABLE `rols` (
 
 INSERT INTO `rols` (`Id_rol`, `Name_rol`) VALUES
 (1, 'Administrador'),
-(2, 'Usuario');
+(2, 'Usuario'),
+(3, 'empresario1');
 
 -- --------------------------------------------------------
 
@@ -141,6 +142,40 @@ ALTER TABLE `tasks`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`Id_user`),
   ADD KEY `fk_users_rols` (`Id_rol`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `priority`
+--
+ALTER TABLE `priority`
+  MODIFY `Id_priority` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `rols`
+--
+ALTER TABLE `rols`
+  MODIFY `Id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `states`
+--
+ALTER TABLE `states`
+  MODIFY `Id_state` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tasks`
+--
+ALTER TABLE `tasks`
+  MODIFY `Id_task` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `Id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
