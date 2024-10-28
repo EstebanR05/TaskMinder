@@ -1,57 +1,58 @@
 <?php
 
-include_once __DIR__ . '/../services/RolService.php';
-class RolController
+include_once __DIR__ . '/../services/PriorityService.php';
+
+class PriorityController
 {
-    private $rolServive;
+    private $priorityService;
 
-    public function __construct() {
-        $this->rolServive = new RolService();
+    public function __construct()
+    {
+        $this->priorityService = new PriorityService();
     }
-    
-    public function getAllRols(): array
+
+    public function getAll(): array
     {
         try {
-            return $this->rolServive->finAllRols();
+            return $this->priorityService->findAll();
         } catch (\Throwable $th) {
             throw new Exception("Error Processing Request: " . $th, 1);
         }
     }
 
-    public function getByIdRols($id): array
+    public function getById($id): array
     {
         try {
-            return $this->rolServive->findOneRols($id);
+            return $this->priorityService->findOne($id);
         } catch (\Throwable $th) {
             throw new Exception("Error Processing Request: " . $th, 1);
         }
     }
 
-    public function createRol($data): void
+    public function create($data): void
     {
         try {
-            $this->rolServive->CreateRols($data);
+            $this->priorityService->save($data);
         } catch (\Throwable $th) {
             throw new Exception("Error Processing Request: " . $th, 2);
         }
     }
 
-    public function updateRol($id, $data): void
+    public function update($id, $data): void
     {
         try {
-            $this->rolServive->UpdateRols($id, $data);
+            $this->priorityService->save($data, $id);
         } catch (\Throwable $th) {
             throw new Exception("Error Processing Request: " . $th, 2);
         }
     }
 
-    public function deleteRol($id): void
+    public function delete($id): void
     {
         try {
-            $this->rolServive->DeleteRols($id);
+            $this->priorityService->remove($id);
         } catch (\Throwable $th) {
             throw new Exception("Error Processing Request: " . $th, 1);
         }
     }
 }
-
