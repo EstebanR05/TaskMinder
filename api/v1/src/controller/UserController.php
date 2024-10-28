@@ -11,24 +11,25 @@ class UserController
         $this->userService = new UserService();
     }
 
-    public function login(): void{
-
-    }
-
-    public function changePassword(): void{
-
-    }
-
     public function getAllUsers(): array
     {
         try {
-            return $this->userService->getUsers();
+            return $this->userService->getAllUsers();
         } catch (\Throwable $th) {
             throw new Exception("Error Processing Request: " . $th, 1);
         }
     }
 
-    public function registerUser($data): void
+    public function getByIdUser($id): array
+    {
+        try {
+            return $this->userService->getByIdUser($id);
+        } catch (\Throwable $th) {
+            throw new Exception("Error Processing Request: " . $th, 1);
+        }
+    }
+
+    public function createUser($data): void
     {
         try {
             $this->userService->createUser($data);

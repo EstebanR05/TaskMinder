@@ -13,10 +13,19 @@ class UserService
         $this->conn = $database->getConnection();
     }
 
-    public function getUsers(): array
+    public function getAllUsers(): array
     {
         $query = "SELECT * FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getByIdUser($id): array
+    {
+        $query = "SELECT * FROM " . $this->table_name . " Where Id_user = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $id);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
