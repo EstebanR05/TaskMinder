@@ -5,18 +5,20 @@ use Task_minder;
 show tables;
 
 create table Rols (
-    Id_rol int NOT NULL PRIMARY KEY,
-    Name_rol varchar(40) NOT NULL
+    Id_rol int NOT NULL AUTO_INCREMENT,
+    Name_rol varchar(40) NOT NULL,
+    PRIMARY KEY(Id_rol)
 );
 
 CREATE TABLE Users (
-  Id_user int NOT NULL PRIMARY KEY,
+  Id_user int NOT NULL AUTO_INCREMENT,
   Name_user varchar(40) NOT NULL,
   Password_user varchar(80) NOT NULL,
   Email_user varchar(80) NOT NULL,
   Phone_user varchar(12) DEFAULT NULL,
   Address_user varchar(80) DEFAULT NULL,
   Id_rol int NOT NULL,
+  PRIMARY KEY(Id_user),
   constraint fk_users_rols foreign key (Id_rol) references Rols(Id_rol)
 );
 
@@ -32,17 +34,19 @@ VALUES
 (1, 'esteban', '123456', 'e05072003@gmail.com', '3116686210', 'carrera 5 #15-15', 1);
 
 create table States(
-    Id_state int NOT NULL PRIMARY KEY,
-    Name_state varchar(30) NOT NULL
+    Id_state int NOT NULL AUTO_INCREMENT,
+    Name_state varchar(30) NOT NULL,
+    PRIMARY KEY(Id_state)
 );
 
 create table Priority(
-    Id_priority int NOT NULL PRIMARY KEY,
-    Name_priority varchar(30) NOT NULL
+    Id_priority int NOT NULL AUTO_INCREMENT,
+    Name_priority varchar(30) NOT NULL,
+    PRIMARY KEY(Id_priority)
 );
 
 create table Tasks (
-    Id_task int NOT NULL PRIMARY KEY,
+    Id_task int NOT NULL AUTO_INCREMENT,
     Name_task varchar(40) NOT NULL,
     Description_task varchar(300) NOT NULL,
     created_at_task datetime NOT NULL,
@@ -51,6 +55,7 @@ create table Tasks (
     Id_priority_task int NOT NULL,
     Id_user_creator_task int NOT NULL,
     Id_user_responsable_task int NOT NULL,
+    PRIMARY KEY(Id_task),
     constraint fk_tasks_state foreign key (Id_state_task) references States(Id_state),
     constraint fk_tasks_priority foreign key (Id_priority_task) references Priority(Id_priority),
     constraint fk_tasks_user foreign key (Id_user_creator_task) references Users(Id_user),
