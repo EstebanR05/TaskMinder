@@ -82,8 +82,8 @@ export class ChartsComponent {
     datasets: [
       {
         data: [300, 50, 100],
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+        backgroundColor: ['#36A2EB', '#36A2EB', '#FFCE56'],
+        hoverBackgroundColor: ['#36A2EB', '#36A2EB', '#FFCE56']
       }
     ]
   };
