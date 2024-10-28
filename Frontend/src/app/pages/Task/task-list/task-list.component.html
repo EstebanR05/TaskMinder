@@ -3,7 +3,7 @@
 </div>
 
 <div class="card p-2 mt-2">
-  <div class="card-header">
+  <div class="card-header bg-white">
     <div class="d-flex justify-content-between">
       <strong class="aling-self-center">Información</strong>
       <div class="d-flex flex-row-reverse bd-highlight">
@@ -43,7 +43,7 @@
               <td>
                 <div class="btn-group" role="group" aria-label="Acciones">
                   <div class="btn-group" role="group" aria-label="Enviar">
-                    <button type="button" class="btn btn-sm bg-white" cTooltip="Estado" [cTooltipVisible]="true">
+                    <button type="button" class="btn btn-sm bg-white" cTooltip="Estado">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-journal-check" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
@@ -55,8 +55,8 @@
                       </svg>
                     </button>
                   </div>
-                  <div class="btn-group" role="group" aria-label="Enviar">
-                    <button type="button" class="btn btn-sm bg-white" cTooltip="prioridad" [cTooltipVisible]="true">
+                  <div class="btn-group" role="group" aria-label="Enviar" cTooltip="prioridad">
+                    <button type="button" class="btn btn-sm bg-white">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
                         <path
@@ -66,8 +66,8 @@
                       </svg>
                     </button>
                   </div>
-                  <div class="btn-group" role="group" aria-label="Enviar">
-                    <button type="button" class="btn btn-sm bg-white" cTooltip="asignar usuario" [cTooltipVisible]="true">
+                  <div class="btn-group" role="group" aria-label="Enviar" cTooltip="asignar usuario">
+                    <button type="button" class="btn btn-sm bg-white" (click)="this.openModal($event)">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-person-plus" viewBox="0 0 16 16">
                         <path
@@ -77,8 +77,8 @@
                       </svg>
                     </button>
                   </div>
-                  <div class="btn-group" role="group" aria-label="Editar">
-                    <button type="button" class="btn btn-sm bg-white"  cTooltip="Editar" [cTooltipVisible]="true"
+                  <div class="btn-group" role="group" aria-label="Editar" cTooltip="Editar">
+                    <button type="button" class="btn btn-sm bg-white"
                       (click)="this.route.navigate(['/pages/task/update/', item.id])">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-pen" viewBox="0 0 16 16">
@@ -87,7 +87,8 @@
                       </svg>
                     </button>
                   </div>
-                  <div class="btn-group" role="group" aria-label="Eliminar"  cTooltip="Eliminar" [cTooltipVisible]="true"> <!-- Ajusta el margen aquí -->
+                  <div class="btn-group" role="group" aria-label="Eliminar" cTooltip="Eliminar">
+                    <!-- Ajusta el margen aquí -->
                     <button type="button" class="btn btn-sm bg-white" (click)="this.delete(item.id)">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-trash3" viewBox="0 0 16 16">
@@ -113,3 +114,27 @@
     </div>
   </div>
 </div>
+
+<!--modal assign user-->
+<ng-container *ngIf="modalDisplay$ | async as modalDisplay;">
+  <div [ngStyle]="{'display':modalDisplay}" (clickOnSide)="this.closeModalMethod()" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-body p-0">
+          <div class="card p-3">
+            <div class="card-header bg-white">
+              <div class="d-flex justify-content-between">
+                <strong class="aling-self-center">Asignar Usuario</strong>
+                <div class="text-end">
+                  <button (click)="this.closeModalMethod()" type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+                </div>
+              </div>
+            </div>
+            <app-task-assign-user *ngIf="selected$ | async as selected;" (closeModal)="this.closeModalMethod()" ></app-task-assign-user>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

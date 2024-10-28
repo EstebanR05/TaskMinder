@@ -2,16 +2,18 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TooltipDirective } from '@coreui/angular';
+import { BaseComponent } from 'src/app/shared/core/base.component';
 import Swal from 'sweetalert2';
+import {TaskAssignUserComponent} from '../task-assign-user/task-assign-user.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule,TooltipDirective],
+  imports: [CommonModule,TooltipDirective, TaskAssignUserComponent],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent extends BaseComponent implements OnInit {
 
   public list: any[] = [{
     id: 1,
@@ -23,7 +25,7 @@ export class TaskListComponent implements OnInit {
     priority: "baja",
   }];
   
-  constructor(public route: Router) { }
+  constructor(public route: Router) { super()}
 
   ngOnInit(): void {
   }

@@ -15,6 +15,7 @@ export class BaseComponent {
   selected$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   modalDisplay$: BehaviorSubject<any> = new BehaviorSubject<any>("none");
   subscription!: Subscription;
+  idModal: any = null;
 
   constructor() { }
 
@@ -33,10 +34,11 @@ export class BaseComponent {
   }
 
   async handleSuccess(message: string) {
-    Swal.fire({ title: 'Success!', text: message, icon: 'success' });
+    Swal.fire({ title: 'Realizado!', text: message, icon: 'success' });
   }
 
-  openModal(event: any) {
+  openModal(event: any, id = null) {
+    if(id) this.idModal = id;
     this.selected$.next({ event })
     this.modalDisplay$.next("block");
   }
