@@ -6,51 +6,64 @@
           <c-card class="p-4">
             <c-card-body>
               <form cForm>
-                <c-input-group class="mb-3">
-
-                </c-input-group>
-                <h1>Login</h1>
-                <c-input-group class="mb-5">
-                </c-input-group>
-                <p class="text-body-secondary">Sign In to your account</p>
-                <c-input-group class="mb-2">
-                  <span cInputGroupText>
-                    <svg cIcon name="cilUser"></svg>
-                  </span>
-                  <input autoComplete="username" cFormControl placeholder="Username" />
-                </c-input-group>
-                <c-input-group class="mb-5">
-                  <span cInputGroupText>
-                    <svg cIcon name="cilLockLocked"></svg>
-                  </span>
-                  <input
-                    autoComplete="current-password"
-                    cFormControl
-                    placeholder="Password"
-                    type="password"
-                  />
-                </c-input-group>
-                <c-row>
-                  <c-col xs="6">
-                    <button cButton class="px-4" color="primary">
-                      Login
-                    </button>
-                  </c-col>
-                  <c-col class="text-right" xs="6">
-                    <button cButton class="px-0" color="link">
-                      Forgot password?
-                    </button>
-                  </c-col>
-                </c-row>
+                <c-row class="justify-content-center">
+                
+                <img src="/assets/images/gg.png" alt="Descripción de la imagen" class="img-fluid w-100 mt-1" />
+                <img src="/assets/images/yy.png" alt="Descripción de la imagen" style="width: 290px; bottom: 0; left: 250px;" />
+              </c-row>
+                
               </form>
             </c-card-body>
           </c-card>
           <c-card [ngStyle]="{'minWidth.%': 44}" class="text-white bg-primary py-5">
             <c-card-body class="text-center">
               <div>
-                <h2>Sign up</h2>
-                <img src="/assets/images/yy.png" alt="Descripción de la imagen" class="img-fluid w-75 mt-0" />
-            
+                <c-input-group class="mb-3">
+
+                </c-input-group>
+                <h2>Iniciar Sesiòn</h2>
+                <c-input-group class="mb-5">
+                </c-input-group>
+                <p class="text-body-primary">Inicia sesión con tu cuenta
+                  <c-input-group class="mb-4">
+
+                  </c-input-group>
+                </p>
+                <c-input-group class="mb-2">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilUser"></svg>
+                  </span>
+                  <input autoComplete="username" cFormControl placeholder="Usuario" />
+                </c-input-group>
+                <c-input-group class="mb-4">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </span>
+                  <input
+                    autoComplete="current-password"
+                    cFormControl
+                    placeholder="Contraseña"
+                    type="password"
+                  />
+                </c-input-group>
+                <c-row>
+                  <c-col xs="15">
+                    <c-input-group class="mb-4">
+                    </c-input-group>
+                    <button cButton class="px-15 " style="background-color: #ffffff; border-color: #686767;" color="btn-dark" >
+                     
+                      Entrar
+                    
+                  </button>
+
+                  <c-input-group class="mb-4"></c-input-group>
+                  </c-col>
+                  <c-col class="text-right" xs="15">
+                    <button cButton class="px-1" color="primary">
+                     ¿Has olvidado tu contraseña?
+                    </button>
+                  </c-col>
+                </c-row>
                 </div>
             </c-card-body>
           </c-card>
@@ -58,4 +71,7 @@
       </c-col>
     </c-row>
   </c-container>
+  <img src="/assets/images/za.png" alt="Descripción de la imagen" class="img-fluid position-absolute" style="width: 120px; bottom: 0; left: 100;" />
+  <img src="/assets/images/a.png" alt="Descripción de la imagen" class="img-fluid position-absolute" style="width: 120px; bottom: 0; left: 110px;" />
+  <img src="/assets/images/m.png" alt="Descripción de la imagen" class="img-fluid position-absolute" style="width: 120px; bottom: 0; left: 220px;" />
 </div>
