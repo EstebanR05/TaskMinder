@@ -30,6 +30,15 @@ class UserService
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getUserByEmail($email): array
+    {
+        $query = "SELECT * FROM " . $this->table_name . " Where Email_user = :email";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":email", $email);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function createUser($data): bool
     {
         $query = "INSERT INTO " . $this->table_name . " (Name_user, Email_user, Password_user, Phone_user, Address_user, Id_rol) VALUES (:name, :email, :password, :phone, :address, :idRol)";
