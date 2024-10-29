@@ -31,6 +31,33 @@
 					"response": []
 				},
 				{
+					"name": "getUserById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/TaskMinder/api/v1/users?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"TaskMinder",
+								"api",
+								"v1",
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "createUser",
 					"request": {
 						"method": "POST",
@@ -701,6 +728,110 @@
 								{
 									"key": "id",
 									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"e05072003@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/TaskMinder/api/v1/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"TaskMinder",
+								"api",
+								"v1",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Esteban 3\",\r\n    \"password\": \"123456\",\r\n    \"email\": \"e05072003@gmail.com\",\r\n    \"phone\": \"3116686210\",\r\n    \"address\": \"carrera 5 #15-15\",\r\n    \"idRol\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/TaskMinder/api/v1/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"TaskMinder",
+								"api",
+								"v1",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changePassword",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"12345\",\r\n    \"newPassword\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/TaskMinder/api/v1/auth?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"TaskMinder",
+								"api",
+								"v1",
+								"auth"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
 								}
 							]
 						}
