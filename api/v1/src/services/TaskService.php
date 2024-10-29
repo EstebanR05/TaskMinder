@@ -18,7 +18,8 @@ class TaskService
         $query = "SELECT * FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapperTasks($data);
     }
 
     public function findOne($id): array
@@ -27,7 +28,8 @@ class TaskService
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapperTasks($data);
     }
 
     public function save($data, $id = null): bool
@@ -77,5 +79,20 @@ class TaskService
         }
 
         return true;
+    }
+
+    private function mapperTasks($tasks): array
+    {
+        return array_map(function ($task) {
+            return [
+                'name' => $task['Name_task'],
+                'description' => $task['Description_task'],
+                'createAt' => $task['created_at_task'],
+                'limit' => $task['Limit_task'],
+                'stateId' => $task['Id_state_task'],
+                'priorityId' => $task['Id_priority_task'],
+                'creatorId' => $task['Id_user_creator_task']
+            ];
+        }, $tasks);
     }
 }

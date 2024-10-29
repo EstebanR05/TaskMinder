@@ -18,7 +18,8 @@ class UserService
         $query = "SELECT * FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapperUsers($data);
     }
 
     public function getByIdUser($id): array
@@ -27,7 +28,8 @@ class UserService
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapperUsers($data);
     }
 
     public function getUserByEmail($email): array
@@ -36,7 +38,8 @@ class UserService
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":email", $email);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapperUsers($data);
     }
 
     public function createUser($data): bool
@@ -86,5 +89,18 @@ class UserService
         }
 
         return true;
+    }
+
+    private function mapperUsers($users): array{
+        return array_map(function ($user) {
+            return [
+                'name' => $user['Name_user'],
+                'password' => $user['Password_user'],
+                'email' => $user['Email_user'],
+                'phone' => $user['Phone_user'],
+                'address' => $user['Address_user'],
+                'idRol' => $user['Id_rol']
+            ];
+        }, $users);
     }
 }

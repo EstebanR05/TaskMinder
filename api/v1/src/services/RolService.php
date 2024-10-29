@@ -18,7 +18,8 @@ class RolService
         $query = "SELECT * FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapperRoles($data);
     }
 
     public function findOneRols($id): array
@@ -27,14 +28,15 @@ class RolService
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapperRoles($data);
     }
 
     public function CreateRols($data): bool
     {
         $query = "INSERT INTO " . $this->table_name . " (Id_rol, Name_rol) VALUES (null, :name)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":name",$data['name']);
+        $stmt->bindParam(":name", $data['name']);
 
         if (!$stmt->execute()) {
             throw new Exception("Error Processing Request", 1);
@@ -48,7 +50,7 @@ class RolService
         $query = "UPDATE " . $this->table_name . " set Name_rol = :name where Id_rol = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
-        $stmt->bindParam(":name",$data['name']);
+        $stmt->bindParam(":name", $data['name']);
 
         if (!$stmt->execute()) {
             throw new Exception("Error Processing Request", 1);
@@ -68,5 +70,15 @@ class RolService
         }
 
         return true;
+    }
+
+    private function mapperRoles($roles): array
+    {
+        return array_map(function ($rol) {
+            return [
+                'id' => $rol['Id_rol'],
+                'name' => $rol['Name_rol']
+            ];
+        }, $roles);
     }
 }

@@ -20,7 +20,7 @@ class AuthService
     {
         $user = $this->userService->getUserByEmail($data["email"]);
 
-        if ($user == null || $user[0]['Password_user'] != $data["password"]) {
+        if ($user == null || $user[0]['password'] != $data["password"]) {
             throw new Exception("Error, usuario o contraseña incorrectos!", 1);
         }
 
@@ -36,7 +36,7 @@ class AuthService
     {
         $user = $this->userService->getByIdUser($id);
 
-        if ($user[0] == null || $user[0]['Password_user'] != $data["password"]) {
+        if ($user[0] == null || $user[0]['password'] != $data["password"]) {
             throw new Exception("Error, no se coincide con los datos!", 1);
         }
         
