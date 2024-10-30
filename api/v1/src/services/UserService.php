@@ -13,12 +13,33 @@ class UserService
         $this->conn = $database->getConnection();
     }
 
-    public function getUsers(): array
+    public function getAllUsers(): array
     {
         $query = "SELECT * FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapperUsers($data);
+    }
+
+    public function getByIdUser($id): array
+    {
+        $query = "SELECT * FROM " . $this->table_name . " Where Id_user = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapperUsers($data);
+    }
+
+    public function getUserByEmail($email): array
+    {
+        $query = "SELECT * FROM " . $this->table_name . " Where Email_user = :email";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":email", $email);
+        $stmt->execute();
+        $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapperUsers($data);
     }
 
     public function createUser($data): bool
@@ -68,5 +89,18 @@ class UserService
         }
 
         return true;
+    }
+
+    private function mapperUsers($users): array{
+        return array_map(function ($user) {
+            return [
+                'name' => $user['Name_user'],
+                'password' => $user['Password_user'],
+                'email' => $user['Email_user'],
+                'phone' => $user['Phone_user'],
+                'address' => $user['Address_user'],
+                'idRol' => $user['Id_rol']
+            ];
+        }, $users);
     }
 }

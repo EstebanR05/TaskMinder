@@ -18,7 +18,8 @@ class TaskService
         $query = "SELECT * FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapperTasks($data);
     }
 
     public function findOne($id): array
@@ -27,25 +28,26 @@ class TaskService
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapperTasks($data);
     }
 
     public function save($data, $id = null): bool
     {
-        ($id != null) ? 
-        $query = "UPDATE " . $this->table_name . 
-        " set Name_task = :name,
-        set Description_task = :description, 
-        set created_at_task = :createAt, 
-        set Limit_task = :limit, 
-        set Id_state_task = :stateId, 
-        set Id_priority_task = :priorityId, 
-        set Id_user_creator_task = :creatorId, 
-        set Id_user_responsable_task = :responsableId where Id_task = :id" 
-        : 
-        $query = "INSERT INTO " . $this->table_name . 
-        " (Id_task, Name_task, Description_task, created_at_task, Limit_task, Id_state_task, Id_priority_task, Id_user_creator_task, Id_user_responsable_task) 
-        VALUES (null, :name, :description, :createAt, :limit, :stateId, :priorityId, :creatorId, :responsableId)";
+        $query = ($id != null) ?
+            "UPDATE " . $this->table_name . "
+         SET Name_task = :name,
+             Description_task = :description, 
+             created_at_task = :createAt, 
+             Limit_task = :limit, 
+             Id_state_task = :stateId,
+             Id_priority_task = :priorityId,
+             Id_user_creator_task = :creatorId 
+         WHERE Id_task = :id"
+            :
+            "INSERT INTO " . $this->table_name . "
+         (Id_task, Name_task, Description_task, created_at_task, Limit_task, Id_state_task, Id_priority_task, Id_user_creator_task, Id_user_responsable_task) 
+         VALUES (null, :name, :description, :createAt, :limit, :stateId, :priorityId, :creatorId, null)";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":name", $data['name']);
@@ -55,9 +57,9 @@ class TaskService
         $stmt->bindParam(":stateId", $data['stateId']);
         $stmt->bindParam(":priorityId", $data['priorityId']);
         $stmt->bindParam(":creatorId", $data['creatorId']);
-        $stmt->bindParam(":responsableId", $data['responsableId']);
-
-        if($id != null) $stmt->bindParam(":id", $id);
+        if ($id != null) {
+            $stmt->bindParam(":id", $id);
+        }
 
         if (!$stmt->execute()) {
             throw new Exception("Error Processing Request", 1);
@@ -77,5 +79,20 @@ class TaskService
         }
 
         return true;
+    }
+
+    private function mapperTasks($tasks): array
+    {
+        return array_map(function ($task) {
+            return [
+                'name' => $task['Name_task'],
+                'description' => $task['Description_task'],
+                'createAt' => $task['created_at_task'],
+                'limit' => $task['Limit_task'],
+                'stateId' => $task['Id_state_task'],
+                'priorityId' => $task['Id_priority_task'],
+                'creatorId' => $task['Id_user_creator_task']
+            ];
+        }, $tasks);
     }
 }

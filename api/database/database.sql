@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2024 at 08:33 PM
+-- Generation Time: Oct 28, 2024 at 09:54 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -32,6 +32,15 @@ CREATE TABLE `priority` (
   `Name_priority` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `priority`
+--
+
+INSERT INTO `priority` (`Id_priority`, `Name_priority`) VALUES
+(1, 'baja'),
+(2, 'media'),
+(3, 'urgente');
+
 -- --------------------------------------------------------
 
 --
@@ -49,8 +58,7 @@ CREATE TABLE `rols` (
 
 INSERT INTO `rols` (`Id_rol`, `Name_rol`) VALUES
 (1, 'Administrador'),
-(2, 'Usuario'),
-(3, 'empresario1');
+(2, 'Usuario');
 
 -- --------------------------------------------------------
 
@@ -62,6 +70,16 @@ CREATE TABLE `states` (
   `Id_state` int(11) NOT NULL,
   `Name_state` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `states`
+--
+
+INSERT INTO `states` (`Id_state`, `Name_state`) VALUES
+(1, 'creada'),
+(2, 'asignada'),
+(3, 'en proceso'),
+(4, 'finalizada');
 
 -- --------------------------------------------------------
 
@@ -78,8 +96,15 @@ CREATE TABLE `tasks` (
   `Id_state_task` int(11) NOT NULL,
   `Id_priority_task` int(11) NOT NULL,
   `Id_user_creator_task` int(11) NOT NULL,
-  `Id_user_responsable_task` int(11) NOT NULL
+  `Id_user_responsable_task` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tasks`
+--
+
+INSERT INTO `tasks` (`Id_task`, `Name_task`, `Description_task`, `created_at_task`, `Limit_task`, `Id_state_task`, `Id_priority_task`, `Id_user_creator_task`, `Id_user_responsable_task`) VALUES
+(1, 'informe', 'realizar informe con normas IEEE', '2024-01-01 00:00:00', '2024-12-22 00:00:00', 1, 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -151,25 +176,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `priority`
 --
 ALTER TABLE `priority`
-  MODIFY `Id_priority` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_priority` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `rols`
 --
 ALTER TABLE `rols`
-  MODIFY `Id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `states`
 --
 ALTER TABLE `states`
-  MODIFY `Id_state` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_state` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `Id_task` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_task` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

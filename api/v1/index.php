@@ -6,6 +6,11 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 // Obtener la ruta
 $request = $_SERVER['REQUEST_URI'];
 
+// Rutas para usuarios (auth)
+if (strpos($request, '/api/v1/auth') !== false) {
+    include_once './src/routes/AuthRoute.php';
+}
+
 // Rutas para usuarios (users)
 if (strpos($request, '/api/v1/users') !== false) {
     include_once './src/routes/UserRoute.php';
