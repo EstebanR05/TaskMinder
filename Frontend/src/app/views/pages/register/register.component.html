@@ -13,9 +13,9 @@
                     <svg cIcon name="cilUser"></svg>
                   </span>
                   <input autocomplete="name" cFormControl placeholder="Nombre" />
-               </c-input-group>
+                </c-input-group>
                 <c-input-group class="mb-2">
-                <span cInputGroupText>
+                  <span cInputGroupText>
 
                     <svg cIcon name="cil-at"></svg>
                   </span>
@@ -37,19 +37,17 @@
                   <span cInputGroupText>
                     <svg cIcon name="cilLockLocked"></svg>
                   </span>
-                  <input
-                    autocomplete="current-password"
-                    cFormControl
-                    placeholder="Contraseña"
-                    type="password"
-                  />
+                  <input autocomplete="current-password" cFormControl placeholder="Contraseña" type="password" />
                 </c-input-group>
                 <c-row class="row justify-content-center">
                   <c-col xs="12">
-                    <button cButton class="px-2 w-100" color="primary">
+                    <button cButton class="px-2 w-100" color="primary" (click)="this.submit();">
                       Registrar
                     </button>
-                   </c-col>
+                  </c-col>
+                  <c-col class="text-right" xs="12">
+                    <a (click)="this.route.navigate(['/login'])">¿Tienes una cuenta?</a>
+                  </c-col>
                 </c-row>
               </form>
             </c-card-body>
@@ -67,8 +65,11 @@
     </c-row>
   </c-container>
   <!-- Imagen en la parte inferior izquierda -->
-  <img src="/assets/images/za.png" alt="Descripción de la imagen" class="img-fluid position-absolute" style="width: 120px; bottom: 0; left: 100;" />
-  <img src="/assets/images/a.png" alt="Descripción de la imagen" class="img-fluid position-absolute" style="width: 120px; bottom: 0; left: 110px;" />
-  <img src="/assets/images/m.png" alt="Descripción de la imagen" class="img-fluid position-absolute" style="width: 120px; bottom: 0; left: 220px;" />
+  <img src="/assets/images/za.png" alt="Descripción de la imagen" class="img-fluid position-absolute"
+    style="width: 120px; bottom: 0; left: 100;" />
+  <img src="/assets/images/a.png" alt="Descripción de la imagen" class="img-fluid position-absolute"
+    style="width: 120px; bottom: 0; left: 110px;" />
+  <img src="/assets/images/m.png" alt="Descripción de la imagen" class="img-fluid position-absolute"
+    style="width: 120px; bottom: 0; left: 220px;" />
 
 </div>
