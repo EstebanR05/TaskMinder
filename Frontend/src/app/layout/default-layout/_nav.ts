@@ -36,6 +36,11 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-user' },
   },
   {
+    name: 'usuarios',
+    url: '/pages/users',
+    iconComponent: { name: 'cil-people' },
+  },
+  {
     name: 'CoreUI Free',
     url: '/icons/coreui-icons',
     icon: 'nav-icon-bullet',
