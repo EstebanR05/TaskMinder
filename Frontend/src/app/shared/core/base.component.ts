@@ -37,8 +37,28 @@ export class BaseComponent {
     Swal.fire({ title: 'Realizado!', text: message, icon: 'success' });
   }
 
+  async confirmDelete(): Promise<any> {
+    return await Swal.fire({
+      title: "Estas seguro de eliminar?",
+      text: "No podras revertir esta accion!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, estoy seguro!"
+    });
+  }
+
+  async handleSuccessDelete(): Promise<any> {
+    return await Swal.fire({
+      title: "Eliminado!",
+      text: "Se ha eliminado correctamente.",
+      icon: "success"
+    });
+  }
+
   openModal(event: any, id = null) {
-    if(id) this.idModal = id;
+    if (id) this.idModal = id;
     this.selected$.next({ event })
     this.modalDisplay$.next("block");
   }

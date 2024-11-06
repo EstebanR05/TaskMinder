@@ -2,7 +2,7 @@
 export const environment = {
     production: false,
     app: {
-      apiBaseUrl: 'http://localhost:3000/api',
+      apiBaseUrl: 'http://localhost/TaskMinder/api/v1',
     },
     auth: {
       JWT: localStorage.getItem('token'),
