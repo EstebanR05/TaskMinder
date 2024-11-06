@@ -94,6 +94,7 @@ class UserService
     private function mapperUsers($users): array{
         return array_map(function ($user) {
             return [
+                'id' => $user['Id_user'],
                 'name' => $user['Name_user'],
                 'password' => $user['Password_user'],
                 'email' => $user['Email_user'],

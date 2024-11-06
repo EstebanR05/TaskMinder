@@ -26,14 +26,13 @@ export class TaskService extends BaseComponent {
 
   public save(body: TaskI): Promise<any> {
     const url: string = `${this.apiUrl}/${this.name}`;
-    return this.http.post(url, body).toPromise();
+    return this.http.post(url, body, { headers: { 'Content-Type': 'application/json' }}).toPromise();
   }
 
-  public update(id: number, body: any): Promise<any> {
+  public update(id: number, body: TaskI): Promise<any> {
     const url: string = `${this.apiUrl}/${this.name}?id=${id}`;
-    return this.http.put(url, body).toPromise();
+    return this.http.put(url, body, { headers: { 'Content-Type': 'application/json' } }).toPromise();
   }
-
 
   public delete(id: number): Promise<any> {
     const url: string = `${this.apiUrl}/${this.name}?id=${id}`;

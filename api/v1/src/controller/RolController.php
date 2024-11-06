@@ -21,7 +21,7 @@ class RolController
     public function getByIdRols($id): array
     {
         try {
-            return $this->rolServive->findOneRols($id);
+            return $this->rolServive->findOneRols($id)[0];
         } catch (\Throwable $th) {
             throw new Exception("Error Processing Request: " . $th, 1);
         }

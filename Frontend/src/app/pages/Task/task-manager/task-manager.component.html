@@ -51,13 +51,12 @@
         </div>
         <div class="col-lg-3 col-sm-6">
           <label for="inputState" class="form-label text-dark">Estado</label>
-          <select class="form-select form-select" formControlName="state">
-            <option selected></option>
+          <select class="form-select form-select-sm" formControlName="stateId">
             <ng-container *ngFor="let state of states">
-              <option>{{state}}</option>
+              <option [value]="state.id">{{state.name}}</option>
             </ng-container>
           </select>
-          <div *ngIf="getControl('state').invalid && ngForm.submitted" class="text-left">
+          <div *ngIf="getControl('stateId').invalid && ngForm.submitted" class="text-left">
             <label class="text-danger text-xs">Estado es requerido o invalido</label>
           </div>
         </div>
@@ -66,29 +65,28 @@
       <div class="row mt-3">
         <div class="col-lg-3 col-sm-6">
           <label for="inputState" class="form-label text-dark">Prioridad</label>
-          <select class="form-select form-select" formControlName="priority">
-            <option selected></option>
+          <select class="form-select form-select-sm" formControlName="priorityId">
             <ng-container *ngFor="let priority of prioritys">
-              <option>{{priority}}</option>
+              <option [value]="priority.id">{{priority.name}}</option>
             </ng-container>
           </select>
-          <div *ngIf="getControl('priority').invalid && ngForm.submitted" class="text-left">
+          <div *ngIf="getControl('priorityId').invalid && ngForm.submitted" class="text-left">
             <label class="text-danger text-xs">Prioridad es requerido o invalido</label>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">
           <label for="inputState" class="form-label text-dark">Fecha de creación</label>
           <input type="date" class="form-control form-control-sm" placeholder="Ingrese la fecha inicial"
-            formControlName="startDate" />
-          <div *ngIf="getControl('startDate').invalid && ngForm.submitted" class="text-left">
+            formControlName="createAt" />
+          <div *ngIf="getControl('createAt').invalid && ngForm.submitted" class="text-left">
             <label class="text-danger text-xs">Fecha de creación es requerida o invalida</label>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">
           <label for="inputState" class="form-label text-dark">Fecha de entrega</label>
           <input type="date" class="form-control form-control-sm" placeholder="Ingrese la fecha final"
-            formControlName="endDate" />
-          <div *ngIf="getControl('endDate').invalid && ngForm.submitted" class="text-left">
+            formControlName="limit" />
+          <div *ngIf="getControl('limit').invalid && ngForm.submitted" class="text-left">
             <label class="text-danger text-xs">Fecha de entrega es requerida o invalida</label>
           </div>
         </div>

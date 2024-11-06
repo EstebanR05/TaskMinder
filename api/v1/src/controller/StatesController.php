@@ -23,7 +23,7 @@ class StatesController
     public function getById($id): array
     {
         try {
-            return $this->stateService->findOne($id);
+            return $this->stateService->findOne($id)[0];
         } catch (\Throwable $th) {
             throw new Exception("Error Processing Request: " . $th, 1);
         }

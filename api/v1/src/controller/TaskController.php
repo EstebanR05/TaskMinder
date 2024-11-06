@@ -23,7 +23,7 @@ class TaskController
     public function getById($id): array
     {
         try {
-            return $this->taskService->findOne($id);
+            return $this->taskService->findOne($id)[0];
         } catch (\Throwable $th) {
             throw new Exception("Error Processing Request: " . $th, 1);
         }

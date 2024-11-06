@@ -85,6 +85,7 @@ class TaskService
     {
         return array_map(function ($task) {
             return [
+                'id' => $task['Id_task'],
                 'name' => $task['Name_task'],
                 'description' => $task['Description_task'],
                 'createAt' => $task['created_at_task'],
