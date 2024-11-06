@@ -42,6 +42,7 @@ export class TaskListComponent extends BaseComponent implements OnInit {
       if (result.isConfirmed) {
         await this.taskService.delete(id);
         await this.handleSuccessDelete();
+        await this.getAll();
       }
     });
   }
