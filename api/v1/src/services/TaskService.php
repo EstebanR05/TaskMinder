@@ -15,7 +15,11 @@ class TaskService
 
     public function findAll(): array
     {
-        $query = "SELECT * FROM " . $this->table_name;
+        $query = "SELECT t.*, s.Name_state, p.Name_priority, u.Name_user as creator, u2.Name_user as responsable FROM " . $this->table_name . " AS t 
+                  inner join task_minder.states s on t.Id_state_task = s.Id_state
+                  inner join task_minder.priority p on t.Id_priority_task = p.Id_priority
+                  inner join task_minder.users u on t.Id_user_creator_task = u.Id_user
+                  left join task_minder.users u2 on t.Id_user_responsable_task = u2.Id_user";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -24,7 +28,12 @@ class TaskService
 
     public function findOne($id): array
     {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE Id_task = :id";
+        $query = "SELECT t.*, s.Name_state, p.Name_priority, u.Name_user as creator, u2.Name_user as responsable FROM " . $this->table_name . " AS t 
+                  inner join task_minder.states s on t.Id_state_task = s.Id_state
+                  inner join task_minder.priority p on t.Id_priority_task = p.Id_priority
+                  inner join task_minder.users u on t.Id_user_creator_task = u.Id_user
+                  left join task_minder.users u2 on t.Id_user_responsable_task = u2.Id_user
+                  WHERE Id_task = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
         $stmt->execute();
@@ -92,7 +101,11 @@ class TaskService
                 'limit' => $task['Limit_task'],
                 'stateId' => $task['Id_state_task'],
                 'priorityId' => $task['Id_priority_task'],
-                'creatorId' => $task['Id_user_creator_task']
+                'creatorId' => $task['Id_user_creator_task'],
+                'stateName' => $task['Name_state'],
+                'priorityName' => $task['Name_priority'],
+                'creatorName' => $task['creator'],
+                'responsableName' => $task['responsable'],
             ];
         }, $tasks);
     }

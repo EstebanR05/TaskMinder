@@ -6,5 +6,9 @@ export interface TaskI {
     limit: string,
     stateId: any,
     priorityId: any,
-    creatorId: any
+    creatorId: any,
+    priorityName?: string,
+    stateName?: string,
+    creatorName?: string,
+    responsableName?: string,
 }

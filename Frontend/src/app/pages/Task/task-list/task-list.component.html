@@ -27,6 +27,8 @@
               <th scope="col">Fecha de entrega</th>
               <th scope="col">Estado</th>
               <th scope="col">Prioridad</th>
+              <th scope="col">Creador</th>
+              <th scope="col">Responsable</th>
               <th scope="col">Opciones</th>
             </tr>
           </thead>
@@ -38,8 +40,10 @@
               <td>{{ item.description }}</td>
               <td>{{ item.createAt | date:'yyyy-MM-dd'}}</td>
               <td>{{ item.limit| date:'yyyy-MM-dd'}}</td>
-              <td>{{ item.stateId }}</td>
-              <td>{{ item.priorityId }}</td>
+              <td>{{ item.stateName }}</td>
+              <td>{{ item.priorityName }}</td>
+              <td>{{ item.creatorName }}</td>
+              <td>{{ (item.responsableName) ? item.responsableName : "Responsable no Asignado" }}</td>
               <td>
                 <div class="btn-group" role="group" aria-label="Acciones">
                   <div class="btn-group" role="group" aria-label="Enviar">
