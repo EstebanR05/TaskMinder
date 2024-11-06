@@ -45,6 +45,7 @@ export class TaskManagerComponent extends BaseComponent implements OnInit {
       limit: ['', Validators.required],
       stateId: ['', Validators.required],
       priorityId: ['', Validators.required],
+      creatorId: ['']
     });
 
     this.onReload();
@@ -93,7 +94,9 @@ export class TaskManagerComponent extends BaseComponent implements OnInit {
   public async submit(): Promise<void> {
     try {
       if (this.form.valid) {
-        (!this.id) ? await this.taskService.save(this.form.value) : await this.taskService.update(this.id, this.form.value);
+        (!this.id) ? 
+        await this.taskService.save(this.form.value) : 
+        await this.taskService.update(this.id, this.form.value);
         let info = (this.id != null) ? "actualizada" : "creada";
         this.handleSuccess(`${info} correctamente`);
         this.route.navigate(['pages/task']);
