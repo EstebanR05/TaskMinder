@@ -4,36 +4,40 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '../../../shared/core/base.component';
 import Swal from 'sweetalert2';
+import { TaskService } from 'src/app/shared/services/task.service';
+import { TaskI } from 'src/app/shared/interface/TaskI.interface';
 
 @Component({
   selector: 'app-task-manager',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
+  providers: [TaskService],
   templateUrl: './task-manager.component.html',
   styleUrl: './task-manager.component.scss'
 })
 export class TaskManagerComponent extends BaseComponent implements OnInit {
 
   public id: any = this.ActiveRoute.snapshot.paramMap.get('id');
-  public states: any[] = ["creada", "asignada", "en proceso", "finalizada"]; 
-  public prioritys: any[] = ["baja", "media", "urgente"]; 
+  public states: any[] = ["creada", "asignada", "en proceso", "finalizada"];
+  public prioritys: any[] = ["baja", "media", "urgente"];
 
   constructor(
     private ActiveRoute: ActivatedRoute,
     private fb: FormBuilder,
     private route: Router,
-    public location: Location
+    public location: Location,
+    private taskService: TaskService
   ) { super() }
 
   ngOnInit(): void {
-
     this.form = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      state: ['', Validators.required],
-      priority: ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
+      createAt: ['', Validators.required],
+      limit: ['', Validators.required],
+      stateId: ['', Validators.required],
+      priorityId: ['', Validators.required],
+      creatorId: ['', Validators.required],
     });
 
     if (this.id) {
@@ -43,14 +47,8 @@ export class TaskManagerComponent extends BaseComponent implements OnInit {
 
   async getValuesForm(): Promise<void> {
     try {
-      this.form.patchValue({
-        name: "realizar informe",
-        description: "se debe realizar el informe con las normas IEEE",
-        state: this.states[0],
-        priority: this.prioritys[0],
-        startDate: "2024-01-01",
-        endDate: "2024-12-31",
-      });
+      const response: TaskI = await this.taskService.findById(this.id);
+      this.form.patchValue(response);
     } catch (error) {
       console.error('Error fetching task', error);
     }
@@ -58,6 +56,7 @@ export class TaskManagerComponent extends BaseComponent implements OnInit {
 
   async submit(): Promise<void> {
     if (this.form.valid) {
+      await (!this.id) ? this.taskService.save(this.form.value) : this.taskService.update(this.id, this.form.value);
       let info = (this.id != null) ? "actualizada" : "creada";
       this.handleSuccess(`${info} correctamente`);
       this.route.navigate(['pages/task']);

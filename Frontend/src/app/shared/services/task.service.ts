@@ -19,8 +19,8 @@ export class TaskService extends BaseComponent {
     return this.http.get<TaskI[]>(url).toPromise();
   }
 
-  public findById(): Promise<any> {
-    const url: string = `${this.apiUrl}/${this.name}`;
+  public findById(id: number): Promise<any> {
+    const url: string = `${this.apiUrl}/${this.name}?id=${id}`;
     return this.http.get<TaskI>(url).toPromise();
   }
 
