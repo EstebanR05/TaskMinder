@@ -59,7 +59,7 @@
                       </svg>
                     </button>
                   </div>
-                  <div class="btn-group" role="group" aria-label="Enviar" cTooltip="prioridad">
+                  <div class="btn-group" role="group" aria-label="Enviar" cTooltip="prioridad" (click)="this.openModalPrioriry($event)">
                     <button type="button" class="btn btn-sm bg-white">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
@@ -160,6 +160,30 @@
               </div>
             </div>
             <app-task-status *ngIf="selectedStatus$ | async as selectedStatus;" (closeModal)="this.closeModalMethodStatus()"></app-task-status>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<!--modal Priorities-->
+<ng-container *ngIf="modalDisplayPrioriry$ | async as modalDisplayPrioriry;">
+  <div [ngStyle]="{'display':modalDisplayPrioriry}" (clickOnSide)="this.closeModalMethodPrioriry()" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-body p-0">
+          <div class="card p-3">
+            <div class="card-header bg-white">
+              <div class="d-flex justify-content-between">
+                <strong class="aling-self-center">Seleccionar Prioridad</strong>
+                <div class="text-end">
+                  <button (click)="this.closeModalMethodPrioriry()" type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+                </div>
+              </div>
+            </div>
+            <app-task-priorities *ngIf="selectedPrioriry$ | async as selectedPrioriry;" (closeModal)="this.closeModalMethodPrioriry()"></app-task-priorities>
           </div>
         </div>
       </div>

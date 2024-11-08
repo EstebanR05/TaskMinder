@@ -9,11 +9,12 @@ import { TaskService } from '../../../shared/services/task.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { TaskStatusComponent } from '../task-status/task-status.component';
+import { TaskPrioritiesComponent } from '../task-priorities/task-priorities.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, TooltipDirective, TaskAssignUserComponent, TaskStatusComponent, HttpClientModule],
+  imports: [CommonModule, TooltipDirective, TaskAssignUserComponent, TaskStatusComponent, TaskPrioritiesComponent, HttpClientModule],
   providers: [TaskService], 
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
@@ -26,6 +27,11 @@ export class TaskListComponent extends BaseComponent implements OnInit {
   public selectedStatus$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public modalDisplayStatus$: BehaviorSubject<any> = new BehaviorSubject<any>("none");
   public subscriptionStatus!: Subscription;
+
+   //Pirority modal
+   public selectedPrioriry$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+   public modalDisplayPrioriry$: BehaviorSubject<any> = new BehaviorSubject<any>("none");
+   public subscriptionPrioriry!: Subscription;
 
   constructor(
     public route: Router, 
@@ -64,6 +70,18 @@ export class TaskListComponent extends BaseComponent implements OnInit {
     this.selectedStatus$.next(null);
     this.modalDisplayStatus$.next("none");
     this.subscriptionStatus.unsubscribe();
+  }
+
+  public openModalPrioriry(event: any, id = null) {
+    if (id) this.idModal = id;
+    this.selectedPrioriry$.next({ event })
+    this.modalDisplayPrioriry$.next("block");
+  }
+
+  public closeModalMethodPrioriry() {
+    this.selectedPrioriry$.next(null);
+    this.modalDisplayPrioriry$.next("none");
+    this.subscriptionPrioriry.unsubscribe();
   }
 
 }
