@@ -1,0 +1,18 @@
+<form [formGroup]="form" (ngSubmit)="submit()" #ngForm="ngForm" role="form">
+    <div class="mb-3 mt-3">
+        <label for="inputState" class="form-label text-dark">Estados</label>
+          <select class="form-select form-select" formControlName="id">
+            <option selected></option>
+            <ng-container *ngFor="let statu of status">
+              <option [value]="statu.id">{{statu.name}}</option>
+            </ng-container>
+          </select>
+          <div *ngIf="getControl('id').invalid && ngForm.submitted" class="text-left">
+            <label class="text-danger text-xs">Estado es requerido o invalido</label>
+          </div>
+    </div>
+
+    <div class="mb-3 mt-3 text-end">
+        <button type="submit" class="btn btn-dark btn-sm">Guardar</button>
+    </div>
+</form>

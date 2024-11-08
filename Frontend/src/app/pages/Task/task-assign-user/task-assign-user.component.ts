@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BaseComponent } from 'src/app/shared/core/base.component';
+import { BaseComponent } from '../../../shared/core/base.component';
 
 @Component({
   selector: 'app-task-assign-user',

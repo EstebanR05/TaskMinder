@@ -7,11 +7,13 @@ import { TaskAssignUserComponent } from '../task-assign-user/task-assign-user.co
 import { TaskI } from '../../../shared/interface/TaskI.interface';
 import { TaskService } from '../../../shared/services/task.service';
 import { HttpClientModule } from '@angular/common/http';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { TaskStatusComponent } from '../task-status/task-status.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, TooltipDirective, TaskAssignUserComponent, HttpClientModule],
+  imports: [CommonModule, TooltipDirective, TaskAssignUserComponent, TaskStatusComponent, HttpClientModule],
   providers: [TaskService], 
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
@@ -19,6 +21,11 @@ import { HttpClientModule } from '@angular/common/http';
 export class TaskListComponent extends BaseComponent implements OnInit {
 
   public list: TaskI[] = [];
+  
+  //status modal
+  public selectedStatus$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public modalDisplayStatus$: BehaviorSubject<any> = new BehaviorSubject<any>("none");
+  public subscriptionStatus!: Subscription;
 
   constructor(
     public route: Router, 
@@ -45,6 +52,18 @@ export class TaskListComponent extends BaseComponent implements OnInit {
         await this.getAll();
       }
     });
+  }
+
+  public openModalStatus(event: any, id = null) {
+    if (id) this.idModal = id;
+    this.selectedStatus$.next({ event })
+    this.modalDisplayStatus$.next("block");
+  }
+
+  public closeModalMethodStatus() {
+    this.selectedStatus$.next(null);
+    this.modalDisplayStatus$.next("none");
+    this.subscriptionStatus.unsubscribe();
   }
 
 }
