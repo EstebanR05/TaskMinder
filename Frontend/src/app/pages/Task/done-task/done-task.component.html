@@ -1,1 +1,55 @@
-<p>done-task works!</p>
+<div class="my-2 d-flex justify-content-between">
+    <div class="fw-bold">Tareas Finalizadas</div>
+</div>
+
+<div class="card p-2 mt-2">
+    <div class="card-header bg-white">
+        <div class="d-flex justify-content-between">
+            <strong class="aling-self-center">Información</strong>
+        </div>
+        <div class="card-body p-0 m-0">
+            <div class="table-responsive">
+                <table class="table" id="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Fecha de creación</th>
+                            <th scope="col">Fecha de entrega</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Prioridad</th>
+                            <th scope="col">Creador</th>
+                            <th scope="col">Responsable</th>
+                            <th scope="col">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(item of this.list; track item;){
+                        <tr>
+                            <td>{{item.id}}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>{{ item.createAt | date:'yyyy-MM-dd'}}</td>
+                            <td>{{ item.limit| date:'yyyy-MM-dd'}}</td>
+                            <td>{{ item.stateName }}</td>
+                            <td>{{ item.priorityName }}</td>
+                            <td>{{ item.creatorName }}</td>
+                            <td>{{ (item.responsableName) ? item.responsableName : "Responsable no Asignado" }}</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Acciones">
+                                    <div class="btn-group" role="group" aria-label="Editar" cTooltip="Editar">
+                                        <button type="button" class="btn btn-outline-danger btn-sm ml-2">
+                                            cancelar
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

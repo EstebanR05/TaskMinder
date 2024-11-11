@@ -3,12 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TooltipDirective } from '@coreui/angular';
 import { BaseComponent } from '../../../shared/core/base.component';
-import { PrioritiesI, RolsI, StatusI } from 'src/app/shared/interface/settings.interface';
+import { PrioritiesI, RolsI, StatusI } from '../../../shared/interface/settings.interface';
 import { HttpClientModule } from '@angular/common/http';
 import { ManaggerComponent } from '../managger/managger.component';
-import { PrioritiesService } from 'src/app/shared/services/priorities.service';
-import { StatusService } from 'src/app/shared/services/status.service';
-import { RolsService } from 'src/app/shared/services/rols.service';
+import { PrioritiesService } from '../../../shared/services/priorities.service';
+import { StatusService } from '../../../shared/services/status.service';
+import { RolsService } from '../../../shared/services/rols.service';
 
 
 @Component({
@@ -24,6 +24,7 @@ export class PrincipalListComponent extends BaseComponent implements OnInit {
   public listRols: RolsI[] = [];
   public listPriorities: PrioritiesI[] = [];
   public listStatus: StatusI[] = [];
+  public titleModal: string = "";
 
   constructor(
     public route: Router,
@@ -66,15 +67,27 @@ export class PrincipalListComponent extends BaseComponent implements OnInit {
     }
   }
 
-  public async delete(id: number): Promise<void> {
-
+  public async deleteRols(id: number): Promise<void> {
+    try {
+      await this.rolsService.delete(id);
+    } catch (error) {
+      this.handleError(`Error handle: ${error}`);
+    }
   }
 
   public async deletePriorities(id: number): Promise<void> {
-
+    try {      
+      await this.prioritiesService.delete(id);
+    } catch (error) {
+      this.handleError(`Error handle: ${error}`);
+    }
   }
 
   public async deleteStatus(id: number): Promise<void> {
-
+    try {
+      await this.statusService.delete(id);
+    } catch (error) {
+      this.handleError(`Error handle: ${error}`);
+    }
   }
 }
