@@ -76,13 +76,19 @@ export class PrincipalListComponent extends BaseComponent implements OnInit {
 
   public async delete(id: number, type: string): Promise<void> {
     try {
-      if (type == PrincialConstants.first) {
-        await this.rolsService.delete(id);
-      } else if (type == PrincialConstants.second) {
-        await this.prioritiesService.delete(id);
-      } else if (type == PrincialConstants.third) {
-        await this.statusService.delete(id);
-      }
+      await this.confirmDelete().then(async (result) => {
+        if (result.isConfirmed) {
+          if (type == PrincialConstants.first) {
+            await this.rolsService.delete(id);
+          } else if (type == PrincialConstants.second) {
+            await this.prioritiesService.delete(id);
+          } else if (type == PrincialConstants.third) {
+            await this.statusService.delete(id);
+          }
+
+          this.onReload();
+        }
+      });
     } catch (error) {
       this.handleError(`Error handle: ${error}`);
     }
