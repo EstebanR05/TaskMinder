@@ -9,7 +9,8 @@
             <strong class="aling-self-center">Roles</strong>
             <div class="d-flex flex-row-reverse bd-highlight">
                 <div class="btn-group">
-                    <button (click)="this.openModal($event); this.titleModal = 'Crear Roles';"
+                    <button
+                        (click)="this.openModal($event); this.modalSettings(principalConstants.first, this.listRols);"
                         class="btn btn-outline-danger btn-sm ml-2" type="button">
                         Crear
                     </button>
@@ -35,7 +36,7 @@
                                 <div class="btn-group" role="group" aria-label="Acciones">
                                     <div class="btn-group" role="group" aria-label="Editar" cTooltip="Editar">
                                         <button type="button" class="btn btn-sm bg-white"
-                                            (click)="this.openModal($event); this.idModal = item.id; this.titleModal = 'Roles';">
+                                            (click)="this.openModal($event); this.modalSettings(principalConstants.first, this.listRols, item.id);">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                                                 <path
@@ -45,7 +46,7 @@
                                     </div>
                                     <div class="btn-group" role="group" aria-label="Eliminar" cTooltip="Eliminar">
                                         <button type="button" class="btn btn-sm bg-white"
-                                            (click)="this.deleteRols(item.id)">
+                                            (click)="this.delete(item.id, principalConstants.third)">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                                                 <path
@@ -71,7 +72,8 @@
             <strong class="aling-self-center">Prioridades</strong>
             <div class="d-flex flex-row-reverse bd-highlight">
                 <div class="btn-group">
-                    <button (click)="this.openModal($event); this.titleModal = 'Crear Prioridades';"
+                    <button
+                        (click)="this.openModal($event); this.modalSettings(principalConstants.second, this.listPriorities);"
                         class="btn btn-outline-danger btn-sm ml-2" type="button">
                         Crear
                     </button>
@@ -97,7 +99,7 @@
                                 <div class="btn-group" role="group" aria-label="Acciones">
                                     <div class="btn-group" role="group" aria-label="Editar" cTooltip="Editar">
                                         <button type="button" class="btn btn-sm bg-white"
-                                            (click)="this.openModal($event); this.idModal = item.id; this.titleModal = 'Prioridades';">
+                                            (click)="this.openModal($event); this.modalSettings(principalConstants.second, this.listPriorities, item.id);">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                                                 <path
@@ -107,7 +109,7 @@
                                     </div>
                                     <div class="btn-group" role="group" aria-label="Eliminar" cTooltip="Eliminar">
                                         <button type="button" class="btn btn-sm bg-white"
-                                            (click)="this.deletePriorities(item.id)">
+                                            (click)="this.delete(item.id, principalConstants.third)">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                                                 <path
@@ -133,7 +135,8 @@
             <strong class="aling-self-center">Estados</strong>
             <div class="d-flex flex-row-reverse bd-highlight">
                 <div class="btn-group">
-                    <button (click)="this.openModal($event); this.titleModal = 'Crear Estados';"
+                    <button
+                        (click)="this.openModal($event); this.modalSettings(principalConstants.third, this.listStatus);"
                         class="btn btn-outline-danger btn-sm ml-2" type="button">
                         Crear
                     </button>
@@ -159,7 +162,7 @@
                                 <div class="btn-group" role="group" aria-label="Acciones">
                                     <div class="btn-group" role="group" aria-label="Editar" cTooltip="Editar">
                                         <button type="button" class="btn btn-sm bg-white"
-                                            (click)="this.openModal($event); this.idModal = item.id; this.titleModal = 'Estados';">
+                                            (click)="this.openModal($event); this.modalSettings(principalConstants.third, this.listStatus, item.id);">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                                                 <path
@@ -169,7 +172,7 @@
                                     </div>
                                     <div class="btn-group" role="group" aria-label="Eliminar" cTooltip="Eliminar">
                                         <button type="button" class="btn btn-sm bg-white"
-                                            (click)="this.deleteStatus(item.id)">
+                                            (click)="this.delete(item.id, principalConstants.third)">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                                                 <path
@@ -198,16 +201,15 @@
                     <div class="card p-3">
                         <div class="card-header bg-white">
                             <div class="d-flex justify-content-between">
-                                <strong class="aling-self-center">{{(!this.idModal) ? 'Crear ' : 'Actualizar ' +
-                                    this.titleModal}}</strong>
+                                <strong class="aling-self-center">{{this.getTitle()}}</strong>
                                 <div class="text-end">
                                     <button (click)="this.closeModalMethod()" type="button" class="btn-close"
                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                             </div>
                         </div>
-                        <app-managger *ngIf="selected$ | async as selected;" [id]="this.idModal" [List]="this.listRols"
-                            [title]="this.titleModal" (closeModal)="this.closeModalMethod()"></app-managger>
+                        <app-managger *ngIf="selected$ | async as selected;" [id]="this.idModal" [List]="this.listModal"
+                            [title]="this.titleModal" (closeModal)="this.closeModalMethod();" (onReload)="this.onReload();"></app-managger>
                     </div>
                 </div>
             </div>

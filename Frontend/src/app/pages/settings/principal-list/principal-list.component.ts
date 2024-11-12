@@ -3,13 +3,18 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TooltipDirective } from '@coreui/angular';
 import { BaseComponent } from '../../../shared/core/base.component';
-import { PrioritiesI, RolsI, StatusI } from '../../../shared/interface/settings.interface';
+import { IdName, PrioritiesI, RolsI, StatusI } from '../../../shared/interface/settings.interface';
 import { HttpClientModule } from '@angular/common/http';
 import { ManaggerComponent } from '../managger/managger.component';
 import { PrioritiesService } from '../../../shared/services/priorities.service';
 import { StatusService } from '../../../shared/services/status.service';
 import { RolsService } from '../../../shared/services/rols.service';
 
+export enum PrincialConstants {
+  first = 'Rol',
+  second = 'Prioridad',
+  third = 'Estado',
+}
 
 @Component({
   selector: 'app-principal-list',
@@ -25,6 +30,8 @@ export class PrincipalListComponent extends BaseComponent implements OnInit {
   public listPriorities: PrioritiesI[] = [];
   public listStatus: StatusI[] = [];
   public titleModal: string = "";
+  public listModal: any[] = [];
+  public principalConstants = PrincialConstants;
 
   constructor(
     public route: Router,
@@ -34,10 +41,10 @@ export class PrincipalListComponent extends BaseComponent implements OnInit {
   ) { super(); }
 
   ngOnInit(): void {
-    this.onStart();
+    this.onReload();
   }
 
-  public async onStart(): Promise<void> {
+  public async onReload(): Promise<void> {
     await this.getAllRoles();
     await this.getAllPriorities();
     await this.getAllStatus();
@@ -67,27 +74,32 @@ export class PrincipalListComponent extends BaseComponent implements OnInit {
     }
   }
 
-  public async deleteRols(id: number): Promise<void> {
+  public async delete(id: number, type: string): Promise<void> {
     try {
-      await this.rolsService.delete(id);
+      if (type == PrincialConstants.first) {
+        await this.rolsService.delete(id);
+      } else if (type == PrincialConstants.second) {
+        await this.prioritiesService.delete(id);
+      } else if (type == PrincialConstants.third) {
+        await this.statusService.delete(id);
+      }
     } catch (error) {
       this.handleError(`Error handle: ${error}`);
     }
   }
 
-  public async deletePriorities(id: number): Promise<void> {
-    try {      
-      await this.prioritiesService.delete(id);
+  public modalSettings(type: string, list: any[], id: any = null) {
+    try {
+      this.idModal = id;
+      this.titleModal = type;
+      this.listModal = list;
     } catch (error) {
       this.handleError(`Error handle: ${error}`);
     }
   }
 
-  public async deleteStatus(id: number): Promise<void> {
-    try {
-      await this.statusService.delete(id);
-    } catch (error) {
-      this.handleError(`Error handle: ${error}`);
-    }
+  public getTitle(): string {
+    return (this.idModal != null) ? `Actualizar ${this.titleModal}` : `Crear ${this.titleModal}`;
   }
+
 }

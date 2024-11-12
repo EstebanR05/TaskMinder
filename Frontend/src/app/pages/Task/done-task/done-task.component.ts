@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
   selector: 'app-done-task',
   standalone: true,
   imports: [CommonModule, TooltipDirective, TaskAssignUserComponent, HttpClientModule],
-  providers: [TaskService], 
+  providers: [TaskService],
   templateUrl: './done-task.component.html',
   styleUrl: './done-task.component.scss'
 })
@@ -21,7 +21,7 @@ export class DoneTaskComponent extends BaseComponent implements OnInit {
   public list: TaskI[] = [];
 
   constructor(
-    public route: Router, 
+    public route: Router,
     private taskService: TaskService
   ) { super() }
 
@@ -31,9 +31,20 @@ export class DoneTaskComponent extends BaseComponent implements OnInit {
 
   private async getAllFinished(): Promise<void> {
     try {
-      this.list = await this.taskService.findAll();
+      this.list = await this.taskService.findAllDone();
     } catch (error) {
       this.handleError(`servidor: ${error}`);
+    }
+  }
+
+  public async cancelTaskDone(id: number): Promise<void> {
+    try {
+      await this.taskService.cancelTaskDone(id);
+      this.handleSuccess(`Tarea cancelada correctamente`);
+      await this.getAllFinished();
+      this.route.navigate(['pages/task/done']);
+    } catch (error) {
+      this.handleError(`Error fetching: ${error}`);
     }
   }
 }

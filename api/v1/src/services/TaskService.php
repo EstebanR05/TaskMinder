@@ -15,11 +15,38 @@ class TaskService
 
     public function findAll(): array
     {
-        $query = "SELECT t.*, s.Name_state, p.Name_priority, u.Name_user as creator, u2.Name_user as responsable FROM " . $this->table_name . " AS t 
-                  inner join task_minder.states s on t.Id_state_task = s.Id_state
-                  inner join task_minder.priority p on t.Id_priority_task = p.Id_priority
-                  inner join task_minder.users u on t.Id_user_creator_task = u.Id_user
-                  left join task_minder.users u2 on t.Id_user_responsable_task = u2.Id_user";
+        $query = "SELECT 
+t.*, 
+s.Name_state, 
+p.Name_priority, 
+u.Name_user as creator, 
+u2.Name_user as responsable 
+FROM  " . $this->table_name . "  AS t  
+inner join task_minder.states s on t.Id_state_task = s.Id_state
+inner join task_minder.priority p on t.Id_priority_task = p.Id_priority
+inner join task_minder.users u on t.Id_user_creator_task = u.Id_user
+left join task_minder.users u2 on t.Id_user_responsable_task = u2.Id_user
+where not s.Name_state like 'finalizada%'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapperTasks($data);
+    }
+
+    public function findAllDone(): array
+    {
+        $query = "SELECT 
+t.*, 
+s.Name_state, 
+p.Name_priority, 
+u.Name_user as creator, 
+u2.Name_user as responsable 
+FROM  " . $this->table_name . "  AS t 
+inner join task_minder.states s on t.Id_state_task = s.Id_state
+inner join task_minder.priority p on t.Id_priority_task = p.Id_priority
+inner join task_minder.users u on t.Id_user_creator_task = u.Id_user
+left join task_minder.users u2 on t.Id_user_responsable_task = u2.Id_user
+where s.Name_state like 'finalizada%'";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -69,6 +96,19 @@ class TaskService
         if ($id != null) {
             $stmt->bindParam(":id", $id);
         }
+
+        if (!$stmt->execute()) {
+            throw new Exception("Error Processing Request", 1);
+        }
+
+        return true;
+    }
+
+    public function cancelTaskDone($id = null): bool
+    {
+        $query = "UPDATE " . $this->table_name . " SET Id_state_task = 1 WHERE Id_task = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $id);
 
         if (!$stmt->execute()) {
             throw new Exception("Error Processing Request", 1);

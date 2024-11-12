@@ -39,7 +39,8 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Acciones">
                                     <div class="btn-group" role="group" aria-label="Editar" cTooltip="Editar">
-                                        <button type="button" class="btn btn-outline-danger btn-sm ml-2">
+                                        <button (click)="this.cancelTaskDone(item.id)" type="button"
+                                            class="btn btn-outline-danger btn-sm ml-2">
                                             cancelar
                                         </button>
                                     </div>
