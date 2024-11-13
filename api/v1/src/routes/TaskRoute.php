@@ -18,8 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $id = $_GET['id'];
     $data = json_decode(file_get_contents("php://input"), true);
+    
     if (strpos($_SERVER['REQUEST_URI'], '/cancelTaskDone') !== false) {
         echo json_encode(['success' => $taskController->cancelTaskDone($id)]);
+    } elseif (strpos($_SERVER['REQUEST_URI'], '/changeAssingUser') !== false) {
+        echo json_encode(['success' => $taskController->changeAssingUser($id, $data['idUser'])]);
+    } elseif (strpos($_SERVER['REQUEST_URI'], '/changeStatusTask') !== false) {
+        echo json_encode(['success' => $taskController->changeStatusTask($id, $data['idStatus'])]);
+    } elseif (strpos($_SERVER['REQUEST_URI'], '/changePrioritiesTask') !== false) {
+        echo json_encode(['success' => $taskController->changePrioritiesTask($id, $data['idPriority'])]);
     } else {
         echo json_encode(['success' => $taskController->update($id, $data)]);
     }

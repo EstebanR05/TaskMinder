@@ -104,11 +104,53 @@ where s.Name_state like 'fin%' or s.Name_state like 'Ter%'";
         return true;
     }
 
-    public function cancelTaskDone($id = null): bool
+    public function cancelTaskDone($id): bool
     {
         $query = "UPDATE " . $this->table_name . " SET Id_state_task = 1 WHERE Id_task = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
+
+        if (!$stmt->execute()) {
+            throw new Exception("Error Processing Request", 1);
+        }
+
+        return true;
+    }
+
+    public function changeAssingUser($id, $idUser): bool
+    {
+        $query = "UPDATE " . $this->table_name . " SET Id_user_responsable_task = :idUser where Id_task = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":idUser", $idUser);
+
+        if (!$stmt->execute()) {
+            throw new Exception("Error Processing Request", 1);
+        }
+
+        return true;
+    }
+
+    public function changeStatusTask($id, $idStatus): bool
+    {
+        $query = "UPDATE " . $this->table_name . " SET Id_state_task = :idStatus WHERE Id_task = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":idStatus", $idStatus);
+
+        if (!$stmt->execute()) {
+            throw new Exception("Error Processing Request", 1);
+        }
+
+        return true;
+    }
+
+    public function changePrioritiesTask($id, $idPriority): bool
+    {
+        $query = "UPDATE " . $this->table_name . " SET Id_priority_task = :idPriority WHERE Id_task = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":idPriority", $idPriority);
 
         if (!$stmt->execute()) {
             throw new Exception("Error Processing Request", 1);

@@ -56,6 +56,33 @@ class TaskController
         }
     }
 
+    public function changeAssingUser($id, $idUser): void
+    {
+        try {
+            $this->taskService->changeAssingUser( $id, $idUser);
+        } catch (\Throwable $th) {
+            throw new Exception("Error Processing Request: " . $th, 2);
+        }
+    }
+
+    public function changeStatusTask($id, $idStatus): void
+    {
+        try {
+            $this->taskService->changeStatusTask( $id, $idStatus);
+        } catch (\Throwable $th) {
+            throw new Exception("Error Processing Request: " . $th, 2);
+        }
+    }
+
+    public function changePrioritiesTask($id, $idPriority): void
+    {
+        try {
+            $this->taskService->changePrioritiesTask( $id, $idPriority);
+        } catch (\Throwable $th) {
+            throw new Exception("Error Processing Request: " . $th, 2);
+        }
+    }
+
     public function update($id, $data): void
     {
         try {
