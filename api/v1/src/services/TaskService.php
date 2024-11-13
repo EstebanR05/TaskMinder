@@ -26,7 +26,7 @@ inner join task_minder.states s on t.Id_state_task = s.Id_state
 inner join task_minder.priority p on t.Id_priority_task = p.Id_priority
 inner join task_minder.users u on t.Id_user_creator_task = u.Id_user
 left join task_minder.users u2 on t.Id_user_responsable_task = u2.Id_user
-where not s.Name_state like 'finalizada%'";
+where not s.Name_state like 'fin%' AND not s.Name_state like 'Ter%'";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -46,7 +46,7 @@ inner join task_minder.states s on t.Id_state_task = s.Id_state
 inner join task_minder.priority p on t.Id_priority_task = p.Id_priority
 inner join task_minder.users u on t.Id_user_creator_task = u.Id_user
 left join task_minder.users u2 on t.Id_user_responsable_task = u2.Id_user
-where s.Name_state like 'finalizada%'";
+where s.Name_state like 'fin%' or s.Name_state like 'Ter%'";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
