@@ -30,7 +30,11 @@ export class TaskService extends BaseComponent {
   }
 
   public save(body: TaskI): Promise<any> {
-    body.creatorId = 1;
+    if (this.userId == 0) {
+      throw new Error('error, no se pudo crear esta tarea');
+    }
+
+    body.creatorId = this.userId;
     const url: string = `${this.apiUrl}/${this.name}`;
     return this.http.post(url, body, { headers: { 'Content-Type': 'application/json' } }).toPromise();
   }

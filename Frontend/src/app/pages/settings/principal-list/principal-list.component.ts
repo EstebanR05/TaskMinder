@@ -9,12 +9,7 @@ import { ManaggerComponent } from '../managger/managger.component';
 import { PrioritiesService } from '../../../shared/services/priorities.service';
 import { StatusService } from '../../../shared/services/status.service';
 import { RolsService } from '../../../shared/services/rols.service';
-
-export enum PrincialConstants {
-  first = 'Rol',
-  second = 'Prioridad',
-  third = 'Estado',
-}
+import { PrincialConstants } from '../../../shared/interface/settings.interface';
 
 @Component({
   selector: 'app-principal-list',

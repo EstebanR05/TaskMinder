@@ -16,7 +16,7 @@ class AuthController
     public function login($data): array
     {
         try {
-            return $this->authService->validatedUser($data);
+            return $this->authService->validatedUser($data)[0];
         } catch (\Throwable $th) {
             throw new Exception("Error Processing Request: " . $th, 1);
         }

@@ -8,8 +8,9 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 export class BaseComponent {
 
   public form!: FormGroup;
-  token: any = environment.auth.JWT;
-  apiUrl = environment.app.apiBaseUrl;
+  public token: any = environment.auth.JWT;
+  public apiUrl = environment.app.apiBaseUrl;
+  public userId: number = environment.auth.userId ? parseInt(environment.auth.userId, 10) : 0;
 
   //modal
   selected$: BehaviorSubject<any> = new BehaviorSubject<any>(null);

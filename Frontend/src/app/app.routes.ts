@@ -76,14 +76,14 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('./views/pages/login/login.component').then(m => m.LoginComponent),
+    loadComponent: () => import('./pages/auth/login/login.component').then(m => m.LoginComponent),
     data: {
       title: 'Login Page'
     }
   },
   {
     path: 'register',
-    loadComponent: () => import('./views/pages/register/register.component').then(m => m.RegisterComponent),
+    loadComponent: () => import('./pages/auth/register/register.component').then(m => m.RegisterComponent),
     data: {
       title: 'Register Page'
     }

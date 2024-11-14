@@ -6,5 +6,6 @@ export const environment = {
     },
     auth: {
       JWT: localStorage.getItem('token'),
+      userId: localStorage.getItem('userId')
     },
   };

@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PrioritiesService } from '../../../shared/services/priorities.service';
 import { StatusService } from '../../../shared/services/status.service';
 import { RolsService } from '../../../shared/services/rols.service';
-import { PrincialConstants } from '../principal-list/principal-list.component';
+import { PrincialConstants } from '../../../shared/interface/settings.interface';
 
 @Component({
   selector: 'app-managger',
@@ -41,19 +41,19 @@ export class ManaggerComponent extends BaseComponent implements OnInit {
   public async submit(): Promise<void> {
     try {
       if (this.form.valid) {
-        
+
         if (PrincialConstants.first === this.title) {
-          (this.id != null) ? 
-          await this.rolsService.update(this.id, this.form.value) : 
-          await this.rolsService.save(this.form.value);
+          (this.id != null) ?
+            await this.rolsService.update(this.id, this.form.value) :
+            await this.rolsService.save(this.form.value);
         } else if (PrincialConstants.second == this.title) {
-          (this.id != null) ? 
-          await this.prioritiesService.update(this.id, this.form.value) : 
-          await this.prioritiesService.save(this.form.value);
+          (this.id != null) ?
+            await this.prioritiesService.update(this.id, this.form.value) :
+            await this.prioritiesService.save(this.form.value);
         } else if (PrincialConstants.third == this.title) {
-          (this.id != null) ? 
-          await this.statusService.update(this.id, this.form.value) : 
-          await this.statusService.save(this.form.value);
+          (this.id != null) ?
+            await this.statusService.update(this.id, this.form.value) :
+            await this.statusService.save(this.form.value);
         }
 
         this.closeModal.emit();
