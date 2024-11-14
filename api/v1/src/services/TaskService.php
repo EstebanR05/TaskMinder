@@ -1,16 +1,20 @@
 <?php
 
 require_once __DIR__ . '/../config/Database.php';
+require_once __DIR__ .'/StateService.php';
 
 class TaskService
 {
     private $conn;
     private $table_name = "tasks";
 
+    private $statesServise;
+
     public function __construct()
     {
         $database = new Database();
         $this->conn = $database->getConnection();
+        $this->statesServise = new StateService();
     }
 
     public function findAll(): array
@@ -66,6 +70,16 @@ where s.Name_state like 'fin%' or s.Name_state like 'Ter%'";
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $this->mapperTasks($data);
+    }
+
+    public function findAllStates($id): array
+    {
+        $query = "SELECT s.* FROM tasks t JOIN states s ON s.Id_state > t.Id_state_task WHERE Id_task = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->statesServise->mapperStates($data);
     }
 
     public function save($data, $id = null): bool

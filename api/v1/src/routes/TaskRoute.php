@@ -5,10 +5,12 @@ include_once __DIR__ . '/../controller/TaskController.php';
 $taskController = new TaskController();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_GET['id'])) {
-        echo json_encode($taskController->getById($_GET['id']));
-    } elseif (strpos($_SERVER['REQUEST_URI'], '/getAllTaskDone') !== false) {
+    if (strpos($_SERVER['REQUEST_URI'], '/getAllTaskDone') !== false) {
         echo json_encode($taskController->getAllTaskDone());
+    } elseif (strpos($_SERVER['REQUEST_URI'], '/getStateByIdTask') !== false) {
+        echo json_encode($taskController->getStateByIdTask($_GET['id']));
+    } elseif (isset($_GET['id'])) {
+        echo json_encode($taskController->getById($_GET['id']));
     } else {
         echo json_encode($taskController->getAll());
     }
@@ -18,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $id = $_GET['id'];
     $data = json_decode(file_get_contents("php://input"), true);
-    
+
     if (strpos($_SERVER['REQUEST_URI'], '/cancelTaskDone') !== false) {
         echo json_encode(['success' => $taskController->cancelTaskDone($id)]);
     } elseif (strpos($_SERVER['REQUEST_URI'], '/changeAssingUser') !== false) {

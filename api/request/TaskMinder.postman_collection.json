@@ -615,6 +615,28 @@
 					"response": []
 				},
 				{
+					"name": "getAllTaskDone",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/TaskMinder/api/v1/tasks/getAllTaskDone",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"TaskMinder",
+								"api",
+								"v1",
+								"tasks",
+								"getAllTaskDone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "getByIdTask",
 					"request": {
 						"method": "GET",
@@ -630,6 +652,34 @@
 								"api",
 								"v1",
 								"tasks"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getStateByIdTask",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/TaskMinder/api/v1/tasks/getStateByIdTask?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"TaskMinder",
+								"api",
+								"v1",
+								"tasks",
+								"getStateByIdTask"
 							],
 							"query": [
 								{

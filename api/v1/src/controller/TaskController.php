@@ -38,6 +38,15 @@ class TaskController
         }
     }
 
+    public function getStateByIdTask($id): array
+    {
+        try {
+            return $this->taskService->findAllStates($id);
+        } catch (\Throwable $th) {
+            throw new Exception("Error Processing Request: " . $th, 1);
+        }
+    }
+
     public function create($data): void
     {
         try {
