@@ -14,4 +14,5 @@ export enum PrincialConstants {
     first = 'Rol',
     second = 'Prioridad',
     third = 'Estado',
-  }
+    fourth = 'Asignar usuario'
+}

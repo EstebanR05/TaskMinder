@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TaskStatusComponent } from './task-status.component';
+import { ModalChangeComponent } from './modal-change.component';
 
-describe('TaskStatusComponent', () => {
-  let component: TaskStatusComponent;
-  let fixture: ComponentFixture<TaskStatusComponent>;
+describe('ModalChangeComponent', () => {
+  let component: ModalChangeComponent;
+  let fixture: ComponentFixture<ModalChangeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskStatusComponent]
+      imports: [ModalChangeComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TaskStatusComponent);
+    fixture = TestBed.createComponent(ModalChangeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

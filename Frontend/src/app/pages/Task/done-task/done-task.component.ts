@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TooltipDirective } from '@coreui/angular';
 import { BaseComponent } from '../../../shared/core/base.component';
-import { TaskAssignUserComponent } from '../task-assign-user/task-assign-user.component';
 import { TaskI } from '../../../shared/interface/TaskI.interface';
 import { TaskService } from '../../../shared/services/task.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-done-task',
   standalone: true,
-  imports: [CommonModule, TooltipDirective, TaskAssignUserComponent, HttpClientModule],
+  imports: [CommonModule, TooltipDirective, HttpClientModule],
   providers: [TaskService],
   templateUrl: './done-task.component.html',
   styleUrl: './done-task.component.scss'

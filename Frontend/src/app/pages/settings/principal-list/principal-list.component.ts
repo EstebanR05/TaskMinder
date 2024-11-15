@@ -24,8 +24,8 @@ export class PrincipalListComponent extends BaseComponent implements OnInit {
   public listRols: RolsI[] = [];
   public listPriorities: PrioritiesI[] = [];
   public listStatus: StatusI[] = [];
-  public titleModal: string = "";
   public listModal: any[] = [];
+  public titleModal: string = "";
   public principalConstants = PrincialConstants;
 
   constructor(

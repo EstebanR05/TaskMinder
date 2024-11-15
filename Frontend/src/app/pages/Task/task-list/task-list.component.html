@@ -47,7 +47,8 @@
               <td>
                 <div class="btn-group" role="group" aria-label="Acciones">
                   <div class="btn-group" role="group" aria-label="Enviar">
-                    <button type="button" class="btn btn-sm bg-white" cTooltip="Estado" (click)="this.openModalStatus($event)">
+                    <button type="button" class="btn btn-sm bg-white" cTooltip="Estado"
+                      (click)="this.openModal($event); this.modalSettings(principalConstants.third, item.id)">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-journal-check" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
@@ -59,7 +60,8 @@
                       </svg>
                     </button>
                   </div>
-                  <div class="btn-group" role="group" aria-label="Enviar" cTooltip="prioridad" (click)="this.openModalPrioriry($event)">
+                  <div class="btn-group" role="group" aria-label="Enviar" cTooltip="prioridad"
+                    (click)="this.openModal($event); this.modalSettings(principalConstants.second, item.id)">
                     <button type="button" class="btn btn-sm bg-white">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
@@ -71,7 +73,8 @@
                     </button>
                   </div>
                   <div class="btn-group" role="group" aria-label="Enviar" cTooltip="asignar usuario">
-                    <button type="button" class="btn btn-sm bg-white" (click)="this.openModal($event)">
+                    <button type="button" class="btn btn-sm bg-white"
+                      (click)="this.openModal($event); this.modalSettings(principalConstants.fourth, item.id)">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-person-plus" viewBox="0 0 16 16">
                         <path
@@ -107,83 +110,30 @@
             }
           </tbody>
         </table>
-        <!-- Contenedor para los controles de paginación -->
-        <div class="pagination-container aling-self-center">
-          <div class="dataTables_paginate">
-
-            <!-- Controles de paginación generados por DataTables -->
-          </div>
-        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!--modal assign user-->
+<!--modal change-->
 <ng-container *ngIf="modalDisplay$ | async as modalDisplay;">
-  <div [ngStyle]="{'display':modalDisplay}" (clickOnSide)="this.closeModalMethod()" class="modal" tabindex="-1" role="dialog">
+  <div [ngStyle]="{'display':modalDisplay}" (clickOnSide)="this.closeModalMethod()" class="modal" tabindex="-1"
+    role="dialog">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-body p-0">
           <div class="card p-3">
             <div class="card-header bg-white">
               <div class="d-flex justify-content-between">
-                <strong class="aling-self-center">Asignar Usuario</strong>
+                <strong class="aling-self-center">{{this.titleModal}}</strong>
                 <div class="text-end">
                   <button (click)="this.closeModalMethod()" type="button" class="btn-close" data-bs-dismiss="modal"
                     aria-label="Close"></button>
                 </div>
               </div>
             </div>
-            <app-task-assign-user *ngIf="selected$ | async as selected;" (closeModal)="this.closeModalMethod()" ></app-task-assign-user>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-container>
-
-<!--modal Status-->
-<ng-container *ngIf="modalDisplayStatus$ | async as modalDisplayStatus;">
-  <div [ngStyle]="{'display':modalDisplayStatus}" (clickOnSide)="this.closeModalMethodStatus()" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-body p-0">
-          <div class="card p-3">
-            <div class="card-header bg-white">
-              <div class="d-flex justify-content-between">
-                <strong class="aling-self-center">Seleccionar Estado</strong>
-                <div class="text-end">
-                  <button (click)="this.closeModalMethodStatus()" type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-                </div>
-              </div>
-            </div>
-            <app-task-status *ngIf="selectedStatus$ | async as selectedStatus;" (closeModal)="this.closeModalMethodStatus()"></app-task-status>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-container>
-
-<!--modal Priorities-->
-<ng-container *ngIf="modalDisplayPrioriry$ | async as modalDisplayPrioriry;">
-  <div [ngStyle]="{'display':modalDisplayPrioriry}" (clickOnSide)="this.closeModalMethodPrioriry()" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-body p-0">
-          <div class="card p-3">
-            <div class="card-header bg-white">
-              <div class="d-flex justify-content-between">
-                <strong class="aling-self-center">Seleccionar Prioridad</strong>
-                <div class="text-end">
-                  <button (click)="this.closeModalMethodPrioriry()" type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-                </div>
-              </div>
-            </div>
-            <app-task-priorities *ngIf="selectedPrioriry$ | async as selectedPrioriry;" (closeModal)="this.closeModalMethodPrioriry()"></app-task-priorities>
+            <app-modal-change *ngIf="selected$ | async as selected;" [id]="this.idModal" [title]="this.titleModal"
+              (closeModal)="this.closeModalMethod();" (onReload)="this.onReload();"></app-modal-change>
           </div>
         </div>
       </div>

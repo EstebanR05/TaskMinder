@@ -29,6 +29,11 @@ export class TaskService extends BaseComponent {
     return this.http.get<TaskI>(url).toPromise();
   }
 
+  public getStateByIdTask(id: number): Promise<any> {
+    const url: string = `${this.apiUrl}/${this.name}/getStateByIdTask?id=${id}`;
+    return this.http.get<TaskI>(url).toPromise();
+  }
+
   public save(body: TaskI): Promise<any> {
     if (this.userId == 0) {
       throw new Error('error, no se pudo crear esta tarea');
@@ -47,6 +52,21 @@ export class TaskService extends BaseComponent {
   public cancelTaskDone(id: number): Promise<any> {
     const url: string = `${this.apiUrl}/${this.name}/cancelTaskDone?id=${id}`;
     return this.http.put(url, {}, { headers: { 'Content-Type': 'application/json' } }).toPromise();
+  }
+
+  public changeAssingUser(id: number, body: any): Promise<any> {
+    const url: string = `${this.apiUrl}/${this.name}/changeAssingUser?id=${id}`;
+    return this.http.put(url, body, { headers: { 'Content-Type': 'application/json' } }).toPromise();
+  }
+
+  public changePrioritiesTask(id: number, body: any): Promise<any> {
+    const url: string = `${this.apiUrl}/${this.name}/changePrioritiesTask?id=${id}`;
+    return this.http.put(url, body, { headers: { 'Content-Type': 'application/json' } }).toPromise();
+  }
+
+  public changeStatusTask(id: number, body: any): Promise<any> {
+    const url: string = `${this.apiUrl}/${this.name}/changeStatusTask?id=${id}`;
+    return this.http.put(url, body, { headers: { 'Content-Type': 'application/json' } }).toPromise();
   }
 
   public delete(id: number): Promise<any> {

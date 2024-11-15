@@ -3,42 +3,36 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TooltipDirective } from '@coreui/angular';
 import { BaseComponent } from '../../../shared/core/base.component';
-import { TaskAssignUserComponent } from '../task-assign-user/task-assign-user.component';
 import { TaskI } from '../../../shared/interface/TaskI.interface';
 import { TaskService } from '../../../shared/services/task.service';
 import { HttpClientModule } from '@angular/common/http';
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { TaskStatusComponent } from '../task-status/task-status.component';
-import { TaskPrioritiesComponent } from '../task-priorities/task-priorities.component';
+import { ModalChangeComponent } from '../modal-change/modal-change.component';
+import { PrincialConstants } from 'src/app/shared/interface/settings.interface';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, TooltipDirective, TaskAssignUserComponent, TaskStatusComponent, TaskPrioritiesComponent, HttpClientModule],
-  providers: [TaskService], 
+  imports: [CommonModule, TooltipDirective, HttpClientModule, ModalChangeComponent],
+  providers: [TaskService],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
 export class TaskListComponent extends BaseComponent implements OnInit {
 
   public list: TaskI[] = [];
-  
-  //status modal
-  public selectedStatus$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public modalDisplayStatus$: BehaviorSubject<any> = new BehaviorSubject<any>("none");
-  public subscriptionStatus!: Subscription;
-
-   //Pirority modal
-   public selectedPrioriry$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-   public modalDisplayPrioriry$: BehaviorSubject<any> = new BehaviorSubject<any>("none");
-   public subscriptionPrioriry!: Subscription;
+  public titleModal: string = "";
+  public principalConstants = PrincialConstants;
 
   constructor(
-    public route: Router, 
+    public route: Router,
     private taskService: TaskService
   ) { super() }
 
   ngOnInit(): void {
+    this.onReload();
+  }
+
+  public async onReload(): Promise<void> {
     this.getAll();
   }
 
@@ -60,28 +54,9 @@ export class TaskListComponent extends BaseComponent implements OnInit {
     });
   }
 
-  public openModalStatus(event: any, id = null) {
-    if (id) this.idModal = id;
-    this.selectedStatus$.next({ event })
-    this.modalDisplayStatus$.next("block");
-  }
-
-  public closeModalMethodStatus() {
-    this.selectedStatus$.next(null);
-    this.modalDisplayStatus$.next("none");
-    this.subscriptionStatus.unsubscribe();
-  }
-
-  public openModalPrioriry(event: any, id = null) {
-    if (id) this.idModal = id;
-    this.selectedPrioriry$.next({ event })
-    this.modalDisplayPrioriry$.next("block");
-  }
-
-  public closeModalMethodPrioriry() {
-    this.selectedPrioriry$.next(null);
-    this.modalDisplayPrioriry$.next("none");
-    this.subscriptionPrioriry.unsubscribe();
+  public modalSettings(type: string, id: number) {
+    this.idModal = id;
+    this.titleModal = type;
   }
 
 }
