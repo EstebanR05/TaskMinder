@@ -23,7 +23,7 @@ class PriorityController
     public function getById($id): array
     {
         try {
-            return $this->priorityService->findOne($id);
+            return $this->priorityService->findOne($id)[0];
         } catch (\Throwable $th) {
             throw new Exception("Error Processing Request: " . $th, 1);
         }

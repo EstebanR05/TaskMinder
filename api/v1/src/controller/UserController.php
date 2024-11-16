@@ -23,7 +23,7 @@ class UserController
     public function getByIdUser($id): array
     {
         try {
-            return $this->userService->getByIdUser($id);
+            return $this->userService->getByIdUser($id)[0];
         } catch (\Throwable $th) {
             throw new Exception("Error Processing Request: " . $th, 1);
         }

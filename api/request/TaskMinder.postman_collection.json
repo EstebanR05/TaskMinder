@@ -182,7 +182,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/TaskMinder/api/v1/rols?id=3",
+							"raw": "http://localhost/TaskMinder/api/v1/rols?id=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -196,7 +196,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "3"
+									"value": "1"
 								}
 							]
 						}
@@ -615,6 +615,28 @@
 					"response": []
 				},
 				{
+					"name": "getAllTaskDone",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/TaskMinder/api/v1/tasks/getAllTaskDone",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"TaskMinder",
+								"api",
+								"v1",
+								"tasks",
+								"getAllTaskDone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "getByIdTask",
 					"request": {
 						"method": "GET",
@@ -630,6 +652,34 @@
 								"api",
 								"v1",
 								"tasks"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getStateByIdTask",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/TaskMinder/api/v1/tasks/getStateByIdTask?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"TaskMinder",
+								"api",
+								"v1",
+								"tasks",
+								"getStateByIdTask"
 							],
 							"query": [
 								{
@@ -728,6 +778,145 @@
 								{
 									"key": "id",
 									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancelTaskDone",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/TaskMinder/api/v1/tasks/cancelTaskDone?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"TaskMinder",
+								"api",
+								"v1",
+								"tasks",
+								"cancelTaskDone"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changeAssingUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUser\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/TaskMinder/api/v1/tasks/changeAssingUser?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"TaskMinder",
+								"api",
+								"v1",
+								"tasks",
+								"changeAssingUser"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changeStatusTask",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idStatus\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/TaskMinder/api/v1/tasks/changeStatusTask?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"TaskMinder",
+								"api",
+								"v1",
+								"tasks",
+								"changeStatusTask"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changePrioritiesTask",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idPriority\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/TaskMinder/api/v1/tasks/changePrioritiesTask?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"TaskMinder",
+								"api",
+								"v1",
+								"tasks",
+								"changePrioritiesTask"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
 								}
 							]
 						}

@@ -2,52 +2,61 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TooltipDirective } from '@coreui/angular';
-import { BaseComponent } from 'src/app/shared/core/base.component';
-import Swal from 'sweetalert2';
-import {TaskAssignUserComponent} from '../task-assign-user/task-assign-user.component';
+import { BaseComponent } from '../../../shared/core/base.component';
+import { TaskI } from '../../../shared/interface/TaskI.interface';
+import { TaskService } from '../../../shared/services/task.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ModalChangeComponent } from '../modal-change/modal-change.component';
+import { PrincialConstants } from 'src/app/shared/interface/settings.interface';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule,TooltipDirective, TaskAssignUserComponent],
+  imports: [CommonModule, TooltipDirective, HttpClientModule, ModalChangeComponent],
+  providers: [TaskService],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
 export class TaskListComponent extends BaseComponent implements OnInit {
 
-  public list: any[] = [{
-    id: 1,
-    name: "realizar informe",
-    description: "se debe realizar el informe con las normas IEEE",
-    createAt: "2024-01-01",
-    finishedAt: "2024-10-20",
-    state: "creada",
-    priority: "baja",
-  }];
-  
-  constructor(public route: Router) { super()}
+  public list: TaskI[] = [];
+  public titleModal: string = "";
+  public principalConstants = PrincialConstants;
+
+  constructor(
+    public route: Router,
+    private taskService: TaskService
+  ) { super() }
 
   ngOnInit(): void {
+    this.onReload();
   }
 
-  public async delete(id: number){
-    Swal.fire({
-      title: "Estas seguro de eliminar?",
-      text: "No podras revertir esta accion!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si, estoy seguro!"
-    }).then((result) => {
+  public async onReload(): Promise<void> {
+    this.getAll();
+  }
+
+  private async getAll(): Promise<void> {
+    try {
+      this.list = await this.taskService.findAll();
+    } catch (error) {
+      this.handleError(`servidor: ${error}`);
+    }
+  }
+
+  public async delete(id: number): Promise<void> {
+    await this.confirmDelete().then(async (result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Eliminado!",
-          text: "La tarea se ha eliminado correctamente.",
-          icon: "success"
-        });
+        await this.taskService.delete(id);
+        await this.handleSuccessDelete();
+        await this.getAll();
       }
     });
+  }
+
+  public modalSettings(type: string, id: number) {
+    this.idModal = id;
+    this.titleModal = type;
   }
 
 }

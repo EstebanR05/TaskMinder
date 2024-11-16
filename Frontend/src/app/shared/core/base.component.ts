@@ -8,8 +8,9 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 export class BaseComponent {
 
   public form!: FormGroup;
-  token: any = environment.auth.JWT;
-  apiUrl = environment.app.apiBaseUrl;
+  public token: any = environment.auth.JWT;
+  public apiUrl = environment.app.apiBaseUrl;
+  public userId: number = environment.auth.userId ? parseInt(environment.auth.userId, 10) : 0;
 
   //modal
   selected$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
@@ -37,8 +38,28 @@ export class BaseComponent {
     Swal.fire({ title: 'Realizado!', text: message, icon: 'success' });
   }
 
+  async confirmDelete(): Promise<any> {
+    return await Swal.fire({
+      title: "Estas seguro de eliminar?",
+      text: "No podras revertir esta accion!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, estoy seguro!"
+    });
+  }
+
+  async handleSuccessDelete(): Promise<any> {
+    return await Swal.fire({
+      title: "Eliminado!",
+      text: "Se ha eliminado correctamente.",
+      icon: "success"
+    });
+  }
+
   openModal(event: any, id = null) {
-    if(id) this.idModal = id;
+    if (id) this.idModal = id;
     this.selected$.next({ event })
     this.modalDisplay$.next("block");
   }

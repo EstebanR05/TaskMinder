@@ -1,66 +1,108 @@
-import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+
+import { CommonModule, Location } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { BaseComponent } from '../../../shared/core/base.component';
-import Swal from 'sweetalert2';
+import { TaskService } from 'src/app/shared/services/task.service';
+import { StatusService } from 'src/app/shared/services/status.service';
+import { PrioritiesService } from 'src/app/shared/services/priorities.service';
+
+import { TaskI } from 'src/app/shared/interface/TaskI.interface';
+import { StatusI, PrioritiesI } from 'src/app/shared/interface/settings.interface';
 
 @Component({
   selector: 'app-task-manager',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
+  providers: [TaskService, StatusService, PrioritiesService],
   templateUrl: './task-manager.component.html',
   styleUrl: './task-manager.component.scss'
 })
 export class TaskManagerComponent extends BaseComponent implements OnInit {
 
   public id: any = this.ActiveRoute.snapshot.paramMap.get('id');
-  public states: any[] = ["creada", "asignada", "en proceso", "finalizada"]; 
-  public prioritys: any[] = ["baja", "media", "urgente"]; 
+  public states: StatusI[] = [];
+  public prioritys: PrioritiesI[] = [];
 
   constructor(
     private ActiveRoute: ActivatedRoute,
     private fb: FormBuilder,
     private route: Router,
-    public location: Location
+    public location: Location,
+    private taskService: TaskService,
+    private statusService: StatusService,
+    private prioritiesService: PrioritiesService
   ) { super() }
 
   ngOnInit(): void {
-
     this.form = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      state: ['', Validators.required],
-      priority: ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
+      createAt: ['', Validators.required],
+      limit: ['', Validators.required],
+      stateId: ['', Validators.required],
+      priorityId: ['', Validators.required],
+      creatorId: ['']
     });
 
-    if (this.id) {
-      this.getValuesForm();
-    }
+    this.onReload();
   }
 
-  async getValuesForm(): Promise<void> {
+  public async onReload(): Promise<void> {
+    if (this.id) this.getValuesForm();
+    this.getStates();
+    this.getPriorities();
+  }
+
+  private async getValuesForm(): Promise<void> {
     try {
-      this.form.patchValue({
-        name: "realizar informe",
-        description: "se debe realizar el informe con las normas IEEE",
-        state: this.states[0],
-        priority: this.prioritys[0],
-        startDate: "2024-01-01",
-        endDate: "2024-12-31",
-      });
+      const response: TaskI = await this.taskService.findById(this.id);
+      const startDate = new Date(response.createAt);
+      const endDate = new Date(response.limit);
+
+      if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        throw new Error('Invalid date format');
+      }
+
+      response.createAt = startDate.toISOString().split('T')[0];
+      response.limit = endDate.toISOString().split('T')[0];
+      this.form.patchValue(response);
     } catch (error) {
-      console.error('Error fetching task', error);
+      this.handleError(`Error fetching: ${error}`)
     }
   }
 
-  async submit(): Promise<void> {
-    if (this.form.valid) {
-      let info = (this.id != null) ? "actualizada" : "creada";
-      this.handleSuccess(`${info} correctamente`);
-      this.route.navigate(['pages/task']);
+  private async getStates(): Promise<void> {
+    try {
+      this.states = await this.statusService.findAll();
+    } catch (error) {
+      this.handleError(`Error fetching: ${error}`);
+    }
+  }
+
+  private async getPriorities(): Promise<void> {
+    try {
+      this.prioritys = await this.prioritiesService.findAll();
+    } catch (error) {
+      this.handleError(`Error fetching: ${error}`);
+    }
+  }
+
+  public async submit(): Promise<void> {
+    try {
+      if (this.form.valid) {
+        (!this.id) ? 
+        await this.taskService.save(this.form.value) : 
+        await this.taskService.update(this.id, this.form.value);
+        let info = (this.id != null) ? "actualizada" : "creada";
+        this.handleSuccess(`${info} correctamente`);
+        this.route.navigate(['pages/task']);
+      }
+    } catch (error) {
+      this.handleError(`Error fetching: ${error}`);
     }
   }
 }

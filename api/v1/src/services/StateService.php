@@ -63,7 +63,7 @@ class StateService
         return true;
     }
 
-    private function mapperStates($states): array
+    public function mapperStates($states): array
     {
         return array_map(function ($state) {
             return [
