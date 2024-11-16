@@ -1,0 +1,75 @@
+<div class="bg-light dark:bg-transparent min-vh-100 d-flex flex-row align-items-center position-relative">
+  <c-container breakpoint="md">
+    <c-row class="justify-content-center">
+      <c-col lg="10" xl="8" class="d-flex justify-content-center">
+        <c-card-group>
+          <c-card class="p-4">
+            <c-card-body>
+              <form cForm>
+                <h1>Registro</h1>
+                <p class="text-body-secondary">Ingrese los siguientes datos</p>
+                <c-input-group class="mb-2">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilUser"></svg>
+                  </span>
+                  <input autocomplete="name" cFormControl placeholder="Nombre" />
+                </c-input-group>
+                <c-input-group class="mb-2">
+                  <span cInputGroupText>
+
+                    <svg cIcon name="cil-at"></svg>
+                  </span>
+                  <input autocomplete="email" cFormControl placeholder="Email" type="email" />
+                </c-input-group>
+                <c-input-group class="mb-2">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilScreenSmartphone"></svg>
+                  </span>
+                  <input autocomplete="tel" cFormControl placeholder="Teléfono" type="tel" />
+                </c-input-group>
+                <c-input-group class="mb-2">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilHome"></svg>
+                  </span>
+                  <input autocomplete="street-address" cFormControl placeholder="Dirección" />
+                </c-input-group>
+                <c-input-group class="mb-5">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </span>
+                  <input autocomplete="current-password" cFormControl placeholder="Contraseña" type="password" />
+                </c-input-group>
+                <c-row class="row justify-content-center">
+                  <c-col xs="12">
+                    <button cButton class="px-2 w-100" color="primary" (click)="this.submit();">
+                      Registrar
+                    </button>
+                  </c-col>
+                  <c-col class="text-right" xs="12">
+                    <a (click)="this.route.navigate(['/login'])">¿Tienes una cuenta?</a>
+                  </c-col>
+                </c-row>
+              </form>
+            </c-card-body>
+          </c-card>
+          <c-card [ngStyle]="{'minWidth.%': 44}" class="text-white bg-primary py-1">
+            <c-card-body class="text-center">
+              <div>
+                <img src="/assets/images/tt.png" alt="Descripción de la imagen" class="img-fluid w-75 mt-1" />
+              </div>
+              <img src="/assets/images/diego.png" alt="Descripción de la imagen" class="img-fluid w-75 mt-1" />
+            </c-card-body>
+          </c-card>
+        </c-card-group>
+      </c-col>
+    </c-row>
+  </c-container>
+  <!-- Imagen en la parte inferior izquierda -->
+  <img src="/assets/images/za.png" alt="Descripción de la imagen" class="img-fluid position-absolute"
+    style="width: 120px; bottom: 0; left: 100;" />
+  <img src="/assets/images/a.png" alt="Descripción de la imagen" class="img-fluid position-absolute"
+    style="width: 120px; bottom: 0; left: 110px;" />
+  <img src="/assets/images/m.png" alt="Descripción de la imagen" class="img-fluid position-absolute"
+    style="width: 120px; bottom: 0; left: 220px;" />
+
+</div>
