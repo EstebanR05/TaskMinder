@@ -63,6 +63,7 @@ export class ModalChangeComponent extends BaseComponent implements OnInit {
           await this.taskService.changeStatusTask(this.id, { idStatus: this.form.value.idChange });
         } else if (PrincialConstants.fourth == this.title) {
           //changeAssingUser method 
+          await this.taskService.changeAssingUser(this.id, { idUser: this.form.value.idChange });
         }
 
         this.closeModal.emit();
