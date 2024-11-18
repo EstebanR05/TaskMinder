@@ -5,43 +5,43 @@
         <c-card-group>
           <c-card class="p-4">
             <c-card-body>
-              <form cForm>
+              <form  [formGroup]="form" (ngSubmit)="submit()" #ngForm="ngForm" role="form">
                 <h1>Registro</h1>
                 <p class="text-body-secondary">Ingrese los siguientes datos</p>
                 <c-input-group class="mb-2">
                   <span cInputGroupText>
                     <svg cIcon name="cilUser"></svg>
                   </span>
-                  <input autocomplete="name" cFormControl placeholder="Nombre" />
+                  <input formControlName="name" autocomplete="name" cFormControl placeholder="Nombre" />
                 </c-input-group>
                 <c-input-group class="mb-2">
                   <span cInputGroupText>
 
                     <svg cIcon name="cil-at"></svg>
                   </span>
-                  <input autocomplete="email" cFormControl placeholder="Email" type="email" />
+                  <input formControlName="email" autocomplete="email" cFormControl placeholder="Email" type="email" />
                 </c-input-group>
                 <c-input-group class="mb-2">
                   <span cInputGroupText>
                     <svg cIcon name="cilScreenSmartphone"></svg>
                   </span>
-                  <input autocomplete="tel" cFormControl placeholder="Teléfono" type="tel" />
+                  <input formControlName="phone" autocomplete="tel" cFormControl placeholder="Teléfono" type="text" />
                 </c-input-group>
                 <c-input-group class="mb-2">
                   <span cInputGroupText>
                     <svg cIcon name="cilHome"></svg>
                   </span>
-                  <input autocomplete="street-address" cFormControl placeholder="Dirección" />
+                  <input formControlName="address" autocomplete="street-address" cFormControl placeholder="Dirección" type="text"/>
                 </c-input-group>
                 <c-input-group class="mb-5">
                   <span cInputGroupText>
                     <svg cIcon name="cilLockLocked"></svg>
                   </span>
-                  <input autocomplete="current-password" cFormControl placeholder="Contraseña" type="password" />
+                  <input formControlName="password" autocomplete="current-password" cFormControl placeholder="Contraseña" type="password" />
                 </c-input-group>
                 <c-row class="row justify-content-center">
                   <c-col xs="12">
-                    <button cButton class="px-2 w-100" color="primary" (click)="this.submit();">
+                    <button cButton class="px-2 w-100" color="primary" type="submit">
                       Registrar
                     </button>
                   </c-col>
