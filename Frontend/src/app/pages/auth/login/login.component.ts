@@ -3,10 +3,10 @@ import { NgStyle } from '@angular/common';
 import { IconDirective } from '@coreui/icons-angular';
 import { ContainerComponent, RowComponent, ColComponent, CardGroupComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, FormControlDirective, ButtonDirective } from '@coreui/angular';
 import { Router } from '@angular/router';
-import { BaseComponent } from 'src/app/shared/core/base.component';
+import { BaseComponent } from '../../../shared/core/base.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
-import { UserI } from 'src/app/shared/interface/UserI.interface';
+import { UserI } from '../../../shared/interface/UserI.interface';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({

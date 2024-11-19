@@ -7,7 +7,7 @@ import { TaskI } from '../../../shared/interface/TaskI.interface';
 import { TaskService } from '../../../shared/services/task.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalChangeComponent } from '../modal-change/modal-change.component';
-import { PrincialConstants } from 'src/app/shared/interface/settings.interface';
+import { PrincialConstants } from '../../../shared/interface/settings.interface';
 
 @Component({
   selector: 'app-task-list',

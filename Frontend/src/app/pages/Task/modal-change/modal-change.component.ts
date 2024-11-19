@@ -6,9 +6,9 @@ import { IdName } from '../../../shared/interface/settings.interface';
 import { HttpClientModule } from '@angular/common/http';
 import { PrioritiesService } from '../../../shared/services/priorities.service';
 import { PrincialConstants } from '../../../shared/interface/settings.interface';
-import { TaskService } from 'src/app/shared/services/task.service';
-import { UserService } from 'src/app/shared/services/user.service';
-import { UserI } from 'src/app/shared/interface/UserI.interface';
+import { TaskService } from '../../../shared/services/task.service';
+import { UserService } from '../../../shared/services/user.service';
+import { UserI } from '../../../shared/interface/UserI.interface';
 
 @Component({
   selector: 'app-modal-change',

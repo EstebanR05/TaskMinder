@@ -6,12 +6,12 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { BaseComponent } from '../../../shared/core/base.component';
-import { TaskService } from 'src/app/shared/services/task.service';
-import { StatusService } from 'src/app/shared/services/status.service';
-import { PrioritiesService } from 'src/app/shared/services/priorities.service';
+import { TaskService } from '../../../shared/services/task.service';
+import { StatusService } from '../../../shared/services/status.service';
+import { PrioritiesService } from '../../../shared/services/priorities.service';
 
-import { TaskI } from 'src/app/shared/interface/TaskI.interface';
-import { StatusI, PrioritiesI } from 'src/app/shared/interface/settings.interface';
+import { TaskI } from '../../../shared/interface/TaskI.interface';
+import { StatusI, PrioritiesI } from '../../../shared/interface/settings.interface';
 
 @Component({
   selector: 'app-task-manager',
@@ -94,15 +94,39 @@ export class TaskManagerComponent extends BaseComponent implements OnInit {
   public async submit(): Promise<void> {
     try {
       if (this.form.valid) {
-        (!this.id) ? 
-        await this.taskService.save(this.form.value) : 
-        await this.taskService.update(this.id, this.form.value);
+        this.validatedDates();
+        (!this.id) ?
+          await this.taskService.save(this.form.value) :
+          await this.taskService.update(this.id, this.form.value);
         let info = (this.id != null) ? "actualizada" : "creada";
         this.handleSuccess(`${info} correctamente`);
         this.route.navigate(['pages/task']);
       }
     } catch (error) {
-      this.handleError(`Error fetching: ${error}`);
+      this.handleError(`${error}`);
     }
   }
+
+  private validatedDates(): void {
+    const currentDate = new Date();
+    const limitDate = new Date(this.form.value.limit + 'T00:00:00');
+    const createAtDate = new Date(this.form.value.createAt + 'T00:00:00');
+
+    currentDate.setHours(0, 0, 0, 0);
+    limitDate.setHours(0, 0, 0, 0);
+    createAtDate.setHours(0, 0, 0, 0);
+
+    if (isNaN(limitDate.getTime()) && isNaN(createAtDate.getTime())) {
+      throw new Error("La fecha proporcionada no es válida.");
+    }
+
+    if (limitDate < currentDate) {
+      throw new Error("No puede seguir el proceso porque la Fecha de entrega es menor a la actual.");
+    }
+
+    if (currentDate < createAtDate) {
+      throw new Error("No puede seguir el proceso porque la Fecha de creación es mayor a la actual.");
+    }
+  }
+
 }
